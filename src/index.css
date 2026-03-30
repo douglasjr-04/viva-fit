@@ -1,0 +1,278 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+@layer base {
+  :root {
+    /* Main brand colors - Bend App palette */
+    --background: 78 33% 96%;
+    --foreground: 100 5% 8%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 100 5% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 100 5% 8%;
+
+    /* Green primary #86BE24 */
+    --primary: 80 69% 44%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Light peach #FEF1E0 */
+    --secondary: 34 92% 94%;
+    --secondary-foreground: 100 5% 8%;
+
+    /* Light blue #DFF1FC */
+    --muted: 203 86% 93%;
+    --muted-foreground: 100 5% 35%;
+
+    /* Accent - same as muted for cards */
+    --accent: 203 86% 93%;
+    --accent-foreground: 100 5% 8%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 80 20% 88%;
+    --input: 80 20% 88%;
+    --ring: 80 69% 44%;
+
+    --radius: 1.25rem;
+
+    /* Custom colors for the app */
+    --bend-black: 100 5% 8%;
+    --bend-green: 80 69% 44%;
+    --bend-peach: 34 92% 94%;
+    --bend-blue: 203 86% 93%;
+    --bend-offwhite: 78 33% 96%;
+
+    /* Gradients */
+    --gradient-welcome: linear-gradient(180deg, hsl(203 86% 93%) 0%, hsl(80 69% 80% / 0.3) 50%, hsl(78 33% 96%) 100%);
+    --gradient-login: linear-gradient(180deg, hsl(203 86% 93%) 0%, hsl(78 33% 96%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(80 50% 85%) 0%, hsl(80 69% 75%) 100%);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  /* Tema Coral - Variação clara com tons de coral/salmão */
+  .theme-coral {
+    --background: 15 40% 96%;
+    --foreground: 0 5% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 5% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 5% 8%;
+    --primary: 12 76% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 45 90% 94%;
+    --secondary-foreground: 0 5% 8%;
+    --muted: 270 60% 94%;
+    --muted-foreground: 0 5% 35%;
+    --accent: 270 60% 94%;
+    --accent-foreground: 0 5% 8%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 15 30% 88%;
+    --input: 15 30% 88%;
+    --ring: 12 76% 58%;
+    --gradient-welcome: linear-gradient(180deg, hsl(270 60% 94%) 0%, hsl(12 76% 80% / 0.3) 50%, hsl(15 40% 96%) 100%);
+    --gradient-login: linear-gradient(180deg, hsl(270 60% 94%) 0%, hsl(15 40% 96%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(12 60% 85%) 0%, hsl(12 76% 75%) 100%);
+  }
+
+  /* Tema Lavanda - Variação clara com tons de roxo/lilás */
+  .theme-lavender {
+    --background: 270 30% 96%;
+    --foreground: 270 10% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 270 10% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 270 10% 15%;
+    --primary: 265 65% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 320 50% 92%;
+    --secondary-foreground: 270 10% 25%;
+    --muted: 200 50% 92%;
+    --muted-foreground: 270 10% 45%;
+    --accent: 200 50% 92%;
+    --accent-foreground: 270 10% 25%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 270 20% 88%;
+    --input: 270 20% 88%;
+    --ring: 265 65% 58%;
+    --gradient-welcome: linear-gradient(180deg, hsl(200 50% 92%) 0%, hsl(265 65% 80% / 0.3) 50%, hsl(270 30% 96%) 100%);
+    --gradient-login: linear-gradient(180deg, hsl(200 50% 92%) 0%, hsl(270 30% 96%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(265 50% 85%) 0%, hsl(265 65% 75%) 100%);
+  }
+
+  /* Tema Âmbar - Variação clara com tons dourados/amarelos */
+  .theme-amber {
+    --background: 45 40% 96%;
+    --foreground: 30 10% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 30 10% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 10% 15%;
+    --primary: 38 92% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 25 60% 92%;
+    --secondary-foreground: 30 10% 25%;
+    --muted: 180 40% 92%;
+    --muted-foreground: 30 10% 45%;
+    --accent: 180 40% 92%;
+    --accent-foreground: 30 10% 25%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 45 25% 88%;
+    --input: 45 25% 88%;
+    --ring: 38 92% 50%;
+    --gradient-welcome: linear-gradient(180deg, hsl(180 40% 92%) 0%, hsl(38 92% 80% / 0.3) 50%, hsl(45 40% 96%) 100%);
+    --gradient-login: linear-gradient(180deg, hsl(180 40% 92%) 0%, hsl(45 40% 96%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(38 70% 85%) 0%, hsl(38 92% 65%) 100%);
+  }
+
+  .dark {
+    --background: 100 5% 8%;
+    --foreground: 0 0% 98%;
+    --card: 100 5% 12%;
+    --card-foreground: 0 0% 98%;
+    --popover: 100 5% 12%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 80 69% 44%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 34 30% 20%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 203 30% 20%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 203 30% 20%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 100 5% 20%;
+    --input: 100 5% 20%;
+    --ring: 80 69% 44%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'DM Sans', sans-serif;
+  }
+}
+
+@layer components {
+  /* Status bar */
+  .status-bar {
+    @apply flex items-center justify-between px-6 py-2 text-xs font-medium;
+  }
+
+  .nav-item {
+    @apply flex flex-col items-center gap-1 text-muted-foreground transition-all duration-200;
+  }
+
+  .nav-item.active {
+    @apply text-primary;
+  }
+
+  .nav-item.active .nav-icon {
+    @apply bg-primary text-primary-foreground rounded-full p-2;
+  }
+
+  /* Cards */
+  .session-card {
+    @apply rounded-3xl p-5 relative overflow-hidden;
+    background: var(--gradient-card);
+  }
+
+  .video-card {
+    @apply rounded-2xl overflow-hidden relative;
+    min-width: 160px;
+  }
+
+  .video-card-peach {
+    @apply bg-secondary;
+  }
+
+  .video-card-blue {
+    @apply bg-muted;
+  }
+
+  /* Play button */
+  .play-btn {
+    @apply bg-primary text-primary-foreground rounded-full flex items-center gap-2 px-4 py-2 font-medium text-sm;
+  }
+
+  .play-btn-circle {
+    @apply bg-primary text-primary-foreground rounded-full w-10 h-10 flex items-center justify-center shadow-lg;
+  }
+
+  /* Gauge */
+  .gauge-circle {
+    stroke-dasharray: 283;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease-in-out;
+  }
+
+  /* Stats cards */
+  .stats-card {
+    @apply bg-card rounded-2xl p-4 shadow-sm border border-border/50;
+  }
+
+  /* Toggle switch */
+  .toggle-green[data-state="checked"] {
+    @apply bg-primary;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+
+  .animate-delay-100 { animation-delay: 0.1s; }
+  .animate-delay-200 { animation-delay: 0.2s; }
+  .animate-delay-300 { animation-delay: 0.3s; }
+  .animate-delay-400 { animation-delay: 0.4s; }
+}
+
+#lovable-badge,
+#lovable-badge * {
+  display: none !important;
+}
