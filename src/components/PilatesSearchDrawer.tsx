@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Search, Clock, Flame, Play } from 'lucide-react';
 import { useUser, createT } from '@/context/UserContext';
 import { pilatesSessions } from '@/data/pilates';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface PilatesSearchDrawerProps {
   open: boolean;
@@ -13,6 +13,7 @@ interface PilatesSearchDrawerProps {
 
 export function PilatesSearchDrawer({ open, onOpenChange }: PilatesSearchDrawerProps) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
   const { preferences } = useUser();
   const t = createT(preferences.language);
@@ -53,7 +54,7 @@ export function PilatesSearchDrawer({ open, onOpenChange }: PilatesSearchDrawerP
                   key={session.id}
                   onClick={() => {
                     onOpenChange(false);
-                    navigate(`/pilates/${session.slug}`);
+                    navigate(`/pilates/${session.slug}`, { state: { from: `${location.pathname}${location.search}` } });
                   }}
                   className="w-full bg-card border border-border/50 rounded-xl p-3 flex items-center gap-3 hover:bg-muted/50 transition-colors"
                 >

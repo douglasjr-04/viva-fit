@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { DesktopLayout } from "@/components/DesktopLayout";
 import { Play, Clock, Heart, Flame, Search, ChevronRight, ArrowLeft } from "lucide-react";
 import { createT, getLocale, useUser } from "@/context/UserContext";
@@ -20,6 +20,7 @@ const bgColors = ["bg-secondary", "bg-muted", "bg-secondary", "bg-muted"];
 
 export default function Sessions() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams] = useSearchParams();
   const { profile, preferences, savedSessions, toggleSavedSession } = useUser();
   const t = createT(preferences.language);
@@ -96,7 +97,7 @@ export default function Sessions() {
         <header className="flex items-center justify-between animate-fade-in">
           <div className="flex items-center gap-3">
             <button
-              onClick={() => navigate(-1)}
+              onClick={() => navigate("/home")}
               className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-muted transition-colors"
             >
               <ArrowLeft className="w-5 h-5 text-foreground" />
@@ -149,7 +150,11 @@ export default function Sessions() {
                     </div>
 
                     <button
-                      onClick={() => navigate("/session/wake-up")}
+                      onClick={() =>
+                        navigate("/session/wake-up", {
+                          state: { from: `${location.pathname}${location.search}` },
+                        })
+                      }
                       className="play-btn mt-3 hover:shadow-lg transition-all duration-300 hover:scale-105"
                     >
                       <Play className="w-4 h-4" fill="currentColor" />
@@ -204,7 +209,11 @@ export default function Sessions() {
                     </div>
 
                     <button
-                      onClick={() => navigate("/session/lower-back")}
+                      onClick={() =>
+                        navigate("/session/lower-back", {
+                          state: { from: `${location.pathname}${location.search}` },
+                        })
+                      }
                       className="bg-foreground text-primary-foreground rounded-full flex items-center gap-2 px-4 py-2 font-medium text-sm mt-3 hover:shadow-lg transition-all duration-300 hover:scale-105"
                     >
                       <Play className="w-4 h-4" fill="currentColor" />
@@ -264,7 +273,11 @@ export default function Sessions() {
                 calories={session.calories}
                 bgColor={bgColors[index % 4]}
                 size="lg"
-                onClick={() => navigate(`/session/${session.slug}`)}
+                onClick={() =>
+                  navigate(`/session/${session.slug}`, {
+                    state: { from: `${location.pathname}${location.search}` },
+                  })
+                }
               />
             ))}
           </div>
@@ -290,7 +303,11 @@ export default function Sessions() {
             {programSessionsPreview.map((session) => (
               <div
                 key={session.id}
-                onClick={() => navigate(`/session/${session.slug}`)}
+                onClick={() =>
+                  navigate(`/session/${session.slug}`, {
+                    state: { from: `${location.pathname}${location.search}` },
+                  })
+                }
                 className="bg-muted rounded-2xl p-4 flex items-center gap-4 cursor-pointer hover:bg-muted/80 transition-colors"
               >
                 <div className="relative w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
@@ -383,7 +400,11 @@ export default function Sessions() {
               {displayedSessions.map((session) => (
                 <div 
                   key={session.id}
-                  onClick={() => navigate(`/session/${session.slug}`)}
+                onClick={() =>
+                  navigate(`/session/${session.slug}`, {
+                    state: { from: `${location.pathname}${location.search}` },
+                  })
+                }
                   className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border/50 hover:shadow-md transition-all duration-300 cursor-pointer"
                 >
                   <div className="relative h-36">

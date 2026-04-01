@@ -50,7 +50,10 @@ function MobileBottomNav() {
           return (
             <button
               key={item.path}
-              onClick={() => navigate(item.path)}
+              onClick={() => {
+                if (isActive) return;
+                navigate(item.path);
+              }}
               className="flex flex-col items-center gap-1 transition-all duration-200"
             >
               <div className={cn(

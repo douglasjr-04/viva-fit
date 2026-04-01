@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { DesktopLayout } from "@/components/DesktopLayout";
 import { AvatarWithUpload } from "@/components/AvatarWithUpload";
 import { SearchDrawer } from "@/components/SearchDrawer";
@@ -7,6 +7,13 @@ import { createT, getLocale, useUser } from "@/context/UserContext";
 import { getWorkoutText, workouts, WorkoutModuleId, WorkoutTopicId, filterWorkoutsByLevel } from "@/data/workouts";
 import bendLogo from "@/assets/bend-logo.png";
 import { Play, Clock, Flame, Search, ArrowLeft } from "lucide-react";
+import yogaHip from "@/assets/yoga-hip.png";
+import yogaBlackOutfit from "@/assets/yoga-black-outfit.png";
+import yogaTealCurly from "@/assets/yoga-teal-curly.png";
+import yogaBalance from "@/assets/yoga-balance.png";
+import yogaShoulder from "@/assets/yoga-shoulder.png";
+import yogaMorning from "@/assets/yoga-morning.png";
+import yogaEvening from "@/assets/yoga-evening.png";
 
 const levelFilters = ["level.all", "level.beginner", "level.intermediate", "level.advanced"] as const;
 const levelValues = ["Todos", "Iniciante", "Intermediário", "Avançado"] as const;
@@ -52,6 +59,7 @@ const modules = [
 
 export default function TreinosModule() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { moduleId } = useParams();
   const [searchParams] = useSearchParams();
   const { profile, preferences } = useUser();
@@ -77,6 +85,23 @@ export default function TreinosModule() {
   const setTopic = (t: WorkoutTopicId) => navigate(`/treinos/modulo/${encodeURIComponent(moduleId || "")}?topic=${encodeURIComponent(t)}`);
   const clearTopic = () => navigate(`/treinos/modulo/${encodeURIComponent(moduleId || "")}`);
 
+  const casaSubmodules: Array<{ topicId: WorkoutTopicId; titleKey: string; image: string }> = [
+    { topicId: "glutes", titleKey: "casa.banner.glutes", image: yogaHip },
+    { topicId: "challenges", titleKey: "casa.banner.challenges", image: yogaBlackOutfit },
+    { topicId: "hypertrophy", titleKey: "casa.banner.hypertrophy", image: yogaTealCurly },
+    { topicId: "weight_loss", titleKey: "casa.banner.weight_loss", image: yogaBalance },
+  ];
+  const academiaSubmodules: Array<{ topicId: WorkoutTopicId; titleKey: string; image: string }> = [
+    { topicId: "glutes", titleKey: "academia.banner.glutes_posterior", image: yogaHip },
+    { topicId: "strength_gain", titleKey: "academia.banner.arms", image: yogaShoulder },
+    { topicId: "hypertrophy", titleKey: "academia.banner.hypertrophy", image: yogaTealCurly },
+    { topicId: "weight_loss", titleKey: "academia.banner.weight_loss", image: yogaBalance },
+  ];
+  const mobilidadeSubmodules: Array<{ topicId: WorkoutTopicId; titleKey: string; image: string }> = [
+    { topicId: "flexibility", titleKey: "mobilidade.banner.mob1", image: yogaMorning },
+    { topicId: "recovery", titleKey: "mobilidade.banner.mob2", image: yogaEvening },
+  ];
+
   return (
     <DesktopLayout>
       <div className="pb-24 overflow-x-hidden">
@@ -87,7 +112,7 @@ export default function TreinosModule() {
         <header className="flex items-center justify-between animate-fade-in">
           <div className="flex items-center gap-3">
             <button
-              onClick={() => navigate(-1)}
+              onClick={() => navigate("/treinos")}
               className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-muted transition-colors"
             >
               <ArrowLeft className="w-5 h-5 text-foreground" />
@@ -140,7 +165,7 @@ export default function TreinosModule() {
                       onClick={clearTopic}
                       className="bg-card/70 backdrop-blur-sm border border-border/40 rounded-full px-3 py-1 text-xs font-medium text-foreground hover:bg-card/90 transition-colors"
                     >
-                      Limpar
+                      {t("common.clear")}
                     </button>
                   )}
                 </div>
@@ -154,6 +179,111 @@ export default function TreinosModule() {
             </div>
           </div>
         </section>
+
+        {moduleId === "academia" && (
+          <section className="mt-6 animate-fade-in">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {academiaSubmodules.map((m) => (
+                <button
+                  key={m.topicId}
+                  onClick={() => setTopic(m.topicId)}
+                  className="relative overflow-hidden rounded-2xl border border-border/50 bg-card text-left min-h-[140px] hover:shadow-md transition-all duration-300"
+                >
+                  <img
+                    src={m.image}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover opacity-35 scale-105 pointer-events-none"
+                    draggable={false}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 via-foreground/40 to-transparent pointer-events-none" />
+                  <div className="relative z-10 p-5 flex items-end justify-between gap-4">
+                    <div>
+                      <h3 className="text-xl font-bold text-primary-foreground leading-tight">
+                        {t(m.titleKey)}
+                      </h3>
+                      <p className="text-xs text-primary-foreground/80 mt-1">
+                        {t("home.count.workouts").replace(
+                          "{count}",
+                          String(workouts.filter(w => w.moduleId === "academia" && w.topics.includes(m.topicId)).length)
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {moduleId === "casa" && (
+          <section className="mt-6 animate-fade-in">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {casaSubmodules.map((m) => (
+                <button
+                  key={m.topicId}
+                  onClick={() => setTopic(m.topicId)}
+                  className="relative overflow-hidden rounded-2xl border border-border/50 bg-card text-left min-h-[140px] hover:shadow-md transition-all duration-300"
+                >
+                  <img
+                    src={m.image}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover opacity-35 scale-105 pointer-events-none"
+                    draggable={false}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 via-foreground/40 to-transparent pointer-events-none" />
+                  <div className="relative z-10 p-5 flex items-end justify-between gap-4">
+                    <div>
+                      <h3 className="text-xl font-bold text-primary-foreground leading-tight">
+                        {t(m.titleKey)}
+                      </h3>
+                      <p className="text-xs text-primary-foreground/80 mt-1">
+                        {t("home.count.workouts").replace(
+                          "{count}",
+                          String(workouts.filter(w => w.moduleId === "casa" && w.topics.includes(m.topicId)).length)
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {moduleId === "mobilidade" && (
+          <section className="mt-6 animate-fade-in">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {mobilidadeSubmodules.map((m) => (
+                <button
+                  key={m.topicId}
+                  onClick={() => setTopic(m.topicId)}
+                  className="relative overflow-hidden rounded-2xl border border-border/50 bg-card text-left min-h-[140px] hover:shadow-md transition-all duration-300"
+                >
+                  <img
+                    src={m.image}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover opacity-35 scale-105 pointer-events-none"
+                    draggable={false}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 via-foreground/40 to-transparent pointer-events-none" />
+                  <div className="relative z-10 p-5 flex items-end justify-between gap-4">
+                    <div>
+                      <h3 className="text-xl font-bold text-primary-foreground leading-tight">
+                        {t(m.titleKey)}
+                      </h3>
+                      <p className="text-xs text-primary-foreground/80 mt-1">
+                        {t("home.count.workouts").replace(
+                          "{count}",
+                          String(workouts.filter(w => w.moduleId === "mobilidade" && w.topics.includes(m.topicId)).length)
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className="mt-6 animate-fade-in">
           <div className="flex justify-center gap-1.5 sm:gap-2 lg:gap-2">
@@ -186,11 +316,15 @@ export default function TreinosModule() {
               {moduleWorkouts.map((w) => (
                 <div
                   key={w.id}
-                  onClick={() => navigate(`/treino/${w.slug}`)}
+                  onClick={() =>
+                    navigate(`/treino/${w.slug}`, {
+                      state: { from: `${location.pathname}${location.search}` },
+                    })
+                  }
                   className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border/50 hover:shadow-md transition-all duration-300 cursor-pointer"
                 >
                   <div className="relative h-36">
-                    <img src={w.image} alt={w.title} className="w-full h-full object-cover" />
+                    <img src={w.image} alt={getWorkoutText(w, preferences.language).title} className="w-full h-full object-cover" />
                     <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full w-12 h-12 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
                       <Play className="w-5 h-5 ml-0.5" fill="currentColor" />
                     </button>

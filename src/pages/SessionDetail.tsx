@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { DesktopLayout } from "@/components/DesktopLayout";
 import { ArrowLeft, Play, Clock, Flame, Heart, Share2 } from "lucide-react";
 import { createT, useUser } from "@/context/UserContext";
@@ -7,8 +7,10 @@ import { getSessionBySlug, getSessionText, sessions } from "@/data/sessions";
 export default function SessionDetail() {
   const { sessionId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { preferences, savedSessions, toggleSavedSession, addSessionToHistory } = useUser();
   const t = createT(preferences.language);
+  const from = (location.state as { from?: string } | null)?.from;
 
   const session = getSessionBySlug(sessionId || "") || sessions[0];
   const sessionText = getSessionText(session, preferences.language);
@@ -64,7 +66,7 @@ export default function SessionDetail() {
         {/* Header */}
         <header className="flex items-center gap-4 animate-fade-in">
           <button 
-            onClick={() => navigate(-1)}
+            onClick={() => (from ? navigate(from) : navigate("/sessions"))}
             className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-muted transition-colors"
           >
             <ArrowLeft className="w-5 h-5 text-foreground" />

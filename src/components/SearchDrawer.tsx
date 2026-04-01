@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   Drawer,
   DrawerContent,
@@ -18,6 +18,7 @@ interface SearchDrawerProps {
 
 export function SearchDrawer({ open, onOpenChange }: SearchDrawerProps) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
   const { preferences } = useUser();
   const t = createT(preferences.language);
@@ -31,7 +32,7 @@ export function SearchDrawer({ open, onOpenChange }: SearchDrawerProps) {
 
   const handleSessionClick = (slug: string) => {
     onOpenChange(false);
-    navigate(`/session/${slug}`);
+    navigate(`/session/${slug}`, { state: { from: `${location.pathname}${location.search}` } });
   };
 
   return (

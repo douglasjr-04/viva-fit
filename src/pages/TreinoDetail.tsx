@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { DesktopLayout } from "@/components/DesktopLayout";
 import { ArrowLeft, Play, Clock, Flame, Heart, Share2 } from "lucide-react";
 import { createT, useUser } from "@/context/UserContext";
@@ -7,8 +7,10 @@ import { getWorkoutBySlug, getWorkoutText, workouts } from "@/data/workouts";
 export default function TreinoDetail() {
   const { workoutId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { preferences, savedSessions, toggleSavedSession, addSessionToHistory } = useUser();
   const t = createT(preferences.language);
+  const from = (location.state as { from?: string } | null)?.from;
 
   const workout = getWorkoutBySlug(workoutId || "") || workouts[0];
   const workoutText = getWorkoutText(workout, preferences.language);
@@ -33,7 +35,16 @@ export default function TreinoDetail() {
         <video className="w-full h-full object-cover" src={workout.videoUrl} controls poster={workout.image} />
       );
     }
-    return <img src={workout.image} alt={workoutText.title} className="w-full h-full object-cover" />;
+    return (
+      <div className="w-full h-full relative">
+        <img src={workout.image} alt={workoutText.title} className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/10 to-transparent" />
+        <div className="absolute bottom-4 left-4 right-4">
+          <p className="text-primary-foreground text-sm font-semibold">{t("video.placeholderTitle")}</p>
+          <p className="text-primary-foreground/80 text-xs mt-1">{t("video.placeholderSubtitle")}</p>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -41,7 +52,7 @@ export default function TreinoDetail() {
       <div className="pb-24 lg:pb-8">
         <header className="flex items-center gap-4 animate-fade-in">
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => (from ? navigate(from) : navigate("/treinos"))}
             className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-muted transition-colors"
           >
             <ArrowLeft className="w-5 h-5 text-foreground" />
@@ -66,9 +77,9 @@ export default function TreinoDetail() {
             </div>
 
             {!workout.videoUrl && (
-              <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full w-20 h-20 flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full w-20 h-20 flex items-center justify-center shadow-xl">
                 <Play className="w-8 h-8 ml-1" fill="currentColor" />
-              </button>
+              </div>
             )}
           </div>
         </section>

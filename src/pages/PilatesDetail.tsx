@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { DesktopLayout } from "@/components/DesktopLayout";
 import { ArrowLeft, Play, Clock, Flame, Heart, Share2 } from "lucide-react";
 import { createT, useUser } from "@/context/UserContext";
@@ -7,8 +7,10 @@ import { getPilatesSessionBySlug, pilatesSessions } from "@/data/pilates";
 export default function PilatesDetail() {
   const { sessionId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { preferences, savedSessions, toggleSavedSession, addSessionToHistory } = useUser();
   const t = createT(preferences.language);
+  const from = (location.state as { from?: string } | null)?.from;
 
   const session = getPilatesSessionBySlug(sessionId || "") || pilatesSessions[0];
   const isSaved = savedSessions.includes(session.id);
@@ -37,7 +39,7 @@ export default function PilatesDetail() {
       <div className="pb-24 lg:pb-8">
         <header className="flex items-center gap-4 animate-fade-in">
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => (from ? navigate(from) : navigate("/pilates"))}
             className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-muted transition-colors"
           >
             <ArrowLeft className="w-5 h-5 text-foreground" />
