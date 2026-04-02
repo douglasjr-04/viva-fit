@@ -29,7 +29,17 @@ export default function PilatesDetail() {
           />
         );
       }
-      return <video className="w-full h-full object-cover" src={session.videoUrl} controls poster={session.image} />;
+      return (
+        <video
+          className="w-full h-full object-cover"
+          src={session.videoUrl}
+          controls
+          controlsList="nodownload"
+          disablePictureInPicture
+          onContextMenu={(e) => e.preventDefault()}
+          poster={session.image}
+        />
+      );
     }
     return <img src={session.image} alt={session.title} className="w-full h-full object-cover" />;
   };

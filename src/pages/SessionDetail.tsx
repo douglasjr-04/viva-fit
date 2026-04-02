@@ -40,7 +40,15 @@ export default function SessionDetail() {
         );
       }
       return (
-        <video className="w-full h-full object-cover" src={session.videoUrl} controls poster={session.image} />
+        <video
+          className="w-full h-full object-cover"
+          src={session.videoUrl}
+          controls
+          controlsList="nodownload"
+          disablePictureInPicture
+          onContextMenu={(e) => e.preventDefault()}
+          poster={session.image}
+        />
       );
     }
     return (

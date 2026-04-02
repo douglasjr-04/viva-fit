@@ -3,6 +3,8 @@ import { DesktopLayout } from "@/components/DesktopLayout";
 import { ArrowLeft, Play, Clock, Flame, Heart, Share2 } from "lucide-react";
 import { createT, useUser } from "@/context/UserContext";
 import { getWorkoutBySlug, getWorkoutText, workouts } from "@/data/workouts";
+import { useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 export default function TreinoDetail() {
   const { workoutId } = useParams();
@@ -15,6 +17,15 @@ export default function TreinoDetail() {
   const workout = getWorkoutBySlug(workoutId || "") || workouts[0];
   const workoutText = getWorkoutText(workout, preferences.language);
   const isSaved = savedSessions.includes(workout.id);
+  const [exerciseVideoOpen, setExerciseVideoOpen] = useState(false);
+  const [activeExerciseIndex, setActiveExerciseIndex] = useState<number | null>(null);
+
+  const activeExerciseItem =
+    activeExerciseIndex === null ? undefined : workout.exerciseItems?.[activeExerciseIndex];
+  const activeExerciseTitle =
+    activeExerciseIndex === null
+      ? ""
+      : workoutText.exercises[activeExerciseIndex] ?? activeExerciseItem?.name ?? "";
 
   const renderPlayer = () => {
     if (workout.videoUrl) {
@@ -32,7 +43,15 @@ export default function TreinoDetail() {
         );
       }
       return (
-        <video className="w-full h-full object-cover" src={workout.videoUrl} controls poster={workout.image} />
+        <video
+          className="w-full h-full object-cover"
+          src={workout.videoUrl}
+          controls
+          controlsList="nodownload"
+          disablePictureInPicture
+          onContextMenu={(e) => e.preventDefault()}
+          poster={workout.image}
+        />
       );
     }
     return (
@@ -117,17 +136,60 @@ export default function TreinoDetail() {
         <section className="mt-8 animate-fade-in animate-delay-200">
           <h3 className="text-lg font-semibold text-foreground mb-4">{t("detail.exercises")}</h3>
           <div className="space-y-3">
-            {workoutText.exercises.map((exercise, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border/50"
-              >
-                <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-semibold">
-                  {index + 1}
-                </div>
-                <span className="text-foreground font-medium">{exercise}</span>
-              </div>
-            ))}
+            {workout.exerciseItems?.length
+              ? workout.exerciseItems.map((item, index) => {
+                  const title = workoutText.exercises[index] ?? item.name;
+                  const metaLines = [
+                    item.series ? `${t("exercise.series")}: ${item.series}` : null,
+                    item.load ? `${t("exercise.load")}: ${item.load}` : null,
+                    item.interval ? `${t("exercise.interval")}: ${item.interval}` : null,
+                    item.instructions ? `\n${t("exercise.instructions")}:\n${item.instructions}` : null,
+                  ].filter(Boolean);
+                  const meta = metaLines.join("\n");
+
+                  return (
+                    <div
+                      key={`${item.name}-${index}`}
+                      className="flex items-start gap-4 p-4 bg-card rounded-xl border border-border/50"
+                    >
+                      <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-semibold flex-shrink-0">
+                        {index + 1}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="min-w-0">
+                            <span className="text-foreground font-medium block">{title}</span>
+                            {meta ? (
+                              <span className="text-xs text-muted-foreground whitespace-pre-line block mt-1">
+                                {meta}
+                              </span>
+                            ) : null}
+                          </div>
+                          <button
+                            onClick={() => {
+                              setActiveExerciseIndex(index);
+                              setExerciseVideoOpen(true);
+                            }}
+                            className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary/15 transition-colors flex-shrink-0"
+                          >
+                            <Play className="w-4 h-4 ml-0.5" fill="currentColor" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              : workoutText.exercises.map((exercise, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border/50"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-semibold">
+                      {index + 1}
+                    </div>
+                    <span className="text-foreground font-medium whitespace-pre-line">{exercise}</span>
+                  </div>
+                ))}
           </div>
         </section>
 
@@ -149,6 +211,32 @@ export default function TreinoDetail() {
           </button>
         </section>
       </div>
+      <Dialog open={exerciseVideoOpen} onOpenChange={setExerciseVideoOpen}>
+        <DialogContent className="p-0 overflow-hidden max-w-2xl">
+          <DialogHeader className="p-6 pb-0">
+            <DialogTitle>{activeExerciseTitle || t("exercise.videoTitle")}</DialogTitle>
+          </DialogHeader>
+          <div className="p-6 pt-4">
+            {activeExerciseItem?.videoUrl ? (
+              <div className="rounded-xl overflow-hidden bg-muted">
+                <video
+                  className="w-full h-full"
+                  src={activeExerciseItem.videoUrl}
+                  controls
+                  controlsList="nodownload"
+                  disablePictureInPicture
+                  onContextMenu={(e) => e.preventDefault()}
+                />
+              </div>
+            ) : (
+              <div className="rounded-xl bg-muted p-4">
+                <p className="text-foreground font-medium">{t("exercise.noVideoTitle")}</p>
+                <p className="text-sm text-muted-foreground mt-1">{t("exercise.noVideoText")}</p>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </DesktopLayout>
   );
 }
