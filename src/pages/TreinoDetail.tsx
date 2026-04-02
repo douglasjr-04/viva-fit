@@ -16,19 +16,18 @@ export default function TreinoDetail() {
 
   const workout = getWorkoutBySlug(workoutId || "") || workouts[0];
   const workoutText = getWorkoutText(workout, preferences.language);
+  const isMobilidade = workout.moduleId === "mobilidade";
   const isSaved = savedSessions.includes(workout.id);
   const [exerciseVideoOpen, setExerciseVideoOpen] = useState(false);
-  const [activeExerciseIndex, setActiveExerciseIndex] = useState<number | null>(null);
+  const [activeVideo, setActiveVideo] = useState<{ title: string; videoUrl?: string } | null>(null);
 
-  const activeExerciseItem =
-    activeExerciseIndex === null ? undefined : workout.exerciseItems?.[activeExerciseIndex];
-  const activeExerciseTitle =
-    activeExerciseIndex === null
-      ? ""
-      : workoutText.exercises[activeExerciseIndex] ?? activeExerciseItem?.name ?? "";
+  const openVideo = (title: string, videoUrl?: string) => {
+    setActiveVideo({ title, videoUrl });
+    setExerciseVideoOpen(true);
+  };
 
   const renderPlayer = () => {
-    if (workout.videoUrl) {
+    if (workout.videoUrl && !isMobilidade) {
       const isYouTube =
         workout.videoUrl.includes("youtube.com") || workout.videoUrl.includes("youtu.be");
       if (isYouTube) {
@@ -53,6 +52,9 @@ export default function TreinoDetail() {
           poster={workout.image}
         />
       );
+    }
+    if (workout.videoUrl && isMobilidade) {
+      return <img src={workout.image} alt={workoutText.title} className="w-full h-full object-cover" />;
     }
     return (
       <div className="w-full h-full relative">
@@ -95,11 +97,18 @@ export default function TreinoDetail() {
               </button>
             </div>
 
-            {!workout.videoUrl && (
+            {isMobilidade && workout.videoUrl ? (
+              <button
+                onClick={() => openVideo(workoutText.title, workout.videoUrl)}
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full w-20 h-20 flex items-center justify-center shadow-xl hover:scale-110 transition-transform"
+              >
+                <Play className="w-8 h-8 ml-1" fill="currentColor" />
+              </button>
+            ) : !workout.videoUrl ? (
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full w-20 h-20 flex items-center justify-center shadow-xl">
                 <Play className="w-8 h-8 ml-1" fill="currentColor" />
               </div>
-            )}
+            ) : null}
           </div>
         </section>
 
@@ -166,10 +175,7 @@ export default function TreinoDetail() {
                             ) : null}
                           </div>
                           <button
-                            onClick={() => {
-                              setActiveExerciseIndex(index);
-                              setExerciseVideoOpen(true);
-                            }}
+                            onClick={() => openVideo(title, item.videoUrl)}
                             className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary/15 transition-colors flex-shrink-0"
                           >
                             <Play className="w-4 h-4 ml-0.5" fill="currentColor" />
@@ -179,6 +185,33 @@ export default function TreinoDetail() {
                     </div>
                   );
                 })
+              : isMobilidade && workout.videoUrl ? (
+                  <div className="flex items-start gap-4 p-4 bg-card rounded-xl border border-border/50">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-semibold flex-shrink-0">
+                      1
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <span className="text-foreground font-medium block">
+                            {workoutText.exercises[0] ?? workoutText.title}
+                          </span>
+                          {workoutText.exercises.length > 1 ? (
+                            <span className="text-xs text-muted-foreground whitespace-pre-line block mt-1">
+                              {workoutText.exercises.slice(1).join("\n")}
+                            </span>
+                          ) : null}
+                        </div>
+                        <button
+                          onClick={() => openVideo(workoutText.title, workout.videoUrl)}
+                          className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary/15 transition-colors flex-shrink-0"
+                        >
+                          <Play className="w-4 h-4 ml-0.5" fill="currentColor" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )
               : workoutText.exercises.map((exercise, index) => (
                   <div
                     key={index}
@@ -214,14 +247,14 @@ export default function TreinoDetail() {
       <Dialog open={exerciseVideoOpen} onOpenChange={setExerciseVideoOpen}>
         <DialogContent className="p-0 overflow-hidden max-w-2xl">
           <DialogHeader className="p-6 pb-0">
-            <DialogTitle>{activeExerciseTitle || t("exercise.videoTitle")}</DialogTitle>
+            <DialogTitle>{activeVideo?.title || t("exercise.videoTitle")}</DialogTitle>
           </DialogHeader>
           <div className="p-6 pt-4">
-            {activeExerciseItem?.videoUrl ? (
+            {activeVideo?.videoUrl ? (
               <div className="rounded-xl overflow-hidden bg-muted">
                 <video
                   className="w-full h-full"
-                  src={activeExerciseItem.videoUrl}
+                  src={activeVideo.videoUrl}
                   controls
                   controlsList="nodownload"
                   disablePictureInPicture

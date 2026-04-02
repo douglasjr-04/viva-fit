@@ -817,6 +817,7 @@ export const workouts: Workout[] = [
     topics: ["flexibility"],
     image: yogaNeck,
     exercises: ["Alongamento de Pescoço II", "10–15 segundos", "Respiração controlada"],
+    videoUrl: "/videos/Alongamento-de-Pescoco-II.mp4",
     i18n: {
       en: {
         title: "Neck Stretch II",
@@ -848,6 +849,7 @@ export const workouts: Workout[] = [
     topics: ["flexibility"],
     image: yogaShoulder,
     exercises: ["Alongamento de Tríceps", "10–15 segundos", "Respiração controlada"],
+    videoUrl: "/videos/Alongamento-de-Triceps.mp4",
     i18n: {
       en: {
         title: "Triceps Stretch",
@@ -879,6 +881,7 @@ export const workouts: Workout[] = [
     topics: ["flexibility"],
     image: yogaShoulder,
     exercises: ["Alongamento de Punho I", "10–15 segundos", "Respiração controlada"],
+    videoUrl: "/videos/Alongamento-de-Punho-I.mp4",
     i18n: {
       en: {
         title: "Wrist Stretch I",
@@ -910,6 +913,7 @@ export const workouts: Workout[] = [
     topics: ["flexibility"],
     image: yogaFlexibility,
     exercises: ["Alongamento de Posteriores VII", "10–15 segundos", "Respiração controlada"],
+    videoUrl: "/videos/Alongamento-de-Posteriores-VII.mp4",
     i18n: {
       en: {
         title: "Hamstring Stretch VII",
@@ -941,6 +945,7 @@ export const workouts: Workout[] = [
     topics: ["flexibility"],
     image: yogaEvening,
     exercises: ["Alongamento de Quadríceps VII", "10–15 segundos", "Respiração controlada"],
+    videoUrl: "/videos/Alongamento-de-Quadriceps-VII.mp4",
     i18n: {
       en: {
         title: "Quadriceps Stretch VII",
@@ -972,6 +977,7 @@ export const workouts: Workout[] = [
     topics: ["flexibility"],
     image: yogaHip,
     exercises: ["Anterior Quadril com Flexão de Tronco", "10–15 segundos", "Respiração controlada"],
+    videoUrl: "/videos/Anterior-Quadril-com-Flexao-de-Tronco.mp4",
     i18n: {
       en: {
         title: "Hip Flexor with Forward Fold",
@@ -1003,6 +1009,7 @@ export const workouts: Workout[] = [
     topics: ["flexibility"],
     image: yogaMorning,
     exercises: ["Alongamento Abdômen", "10–15 segundos", "Respiração controlada"],
+    videoUrl: "/videos/Alongamento-Abdomen.mp4",
     i18n: {
       en: {
         title: "Ab Stretch",
@@ -1034,6 +1041,7 @@ export const workouts: Workout[] = [
     topics: ["flexibility"],
     image: yogaFlexibility,
     exercises: ["Alongamento de Posteriores IV", "10–15 segundos", "Respiração controlada"],
+    videoUrl: "/videos/Alongamento-de-Posteriores-IV.mp4",
     i18n: {
       en: {
         title: "Hamstring Stretch IV",
@@ -1065,6 +1073,7 @@ export const workouts: Workout[] = [
     topics: ["flexibility"],
     image: yogaFlexibility,
     exercises: ["Alongamento de Posterior II", "10–15 segundos", "Respiração controlada"],
+    videoUrl: "/videos/Alongamento-de-Posterior-II.mp4",
     i18n: {
       en: {
         title: "Hamstring Stretch II",
@@ -1096,6 +1105,7 @@ export const workouts: Workout[] = [
     topics: ["recovery"],
     image: yogaShoulder,
     exercises: ["Alongamento de Peitoral Espaldar II", "10–15 segundos", "Respiração controlada"],
+    videoUrl: "/videos/Alongamento-de-Peitoral-Espaldar-II.mp4",
     i18n: {
       en: {
         title: "Chest & Back Stretch II",
@@ -1127,6 +1137,7 @@ export const workouts: Workout[] = [
     topics: ["recovery"],
     image: yogaEvening,
     exercises: ["Alongamento de Panturrilha Espaldar", "10–15 segundos", "Respiração controlada"],
+    videoUrl: "/videos/Alongamento-de-Panturrilha-Espaldar.mp4",
     i18n: {
       en: {
         title: "Calf & Back Stretch",
@@ -1158,6 +1169,7 @@ export const workouts: Workout[] = [
     topics: ["recovery"],
     image: yogaHip,
     exercises: ["Alongamento Adutor Espaldar", "10–15 segundos", "Respiração controlada"],
+    videoUrl: "/videos/Alongamento-Adutor-Espaldar.mp4",
     i18n: {
       en: {
         title: "Adductor & Back Stretch",
@@ -1189,6 +1201,7 @@ export const workouts: Workout[] = [
     topics: ["recovery"],
     image: yogaShoulder,
     exercises: ["Alongamento de Peitoral Espaldar", "10–15 segundos", "Respiração controlada"],
+    videoUrl: "/videos/Alongamento-de-Peitoral-Espaldar.mp4",
     i18n: {
       en: {
         title: "Chest & Back Stretch",
@@ -1220,6 +1233,7 @@ export const workouts: Workout[] = [
     topics: ["recovery"],
     image: yogaFlexibility,
     exercises: ["Alongamento de Posteriores Espaldar II", "10–15 segundos", "Respiração controlada"],
+    videoUrl: "/videos/Alongamento-de-Posteriores-Espaldar-II.mp4",
     i18n: {
       en: {
         title: "Hamstrings & Back Stretch II",
@@ -1251,6 +1265,7 @@ export const workouts: Workout[] = [
     topics: ["recovery"],
     image: yogaFlexibility,
     exercises: ["Alongamento de Posteriores Espaldar I", "10–15 segundos", "Respiração controlada"],
+    videoUrl: "/videos/Alongamento-de-Posteriores-Espaldar-I.mp4",
     i18n: {
       en: {
         title: "Hamstrings & Back Stretch I",
@@ -1282,6 +1297,7 @@ export const workouts: Workout[] = [
     topics: ["recovery"],
     image: yogaLowerBack,
     exercises: ["Alongamento Dorsal Espaldar IV", "10–15 segundos", "Respiração controlada"],
+    videoUrl: "/videos/Alongamento-Dorsal-Espaldar-IV.mp4",
     i18n: {
       en: {
         title: "Back Stretch IV",
