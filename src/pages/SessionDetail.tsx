@@ -148,7 +148,7 @@ export default function SessionDetail() {
             onClick={() =>
               addSessionToHistory({
                 sessionId: session.id,
-                sessionTitle: session.title,
+                sessionTitle: sessionText.title,
                 duration: session.duration,
                 calories: session.calories,
                 activityType: "yoga",

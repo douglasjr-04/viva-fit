@@ -3,6 +3,7 @@ import { DesktopLayout } from "@/components/DesktopLayout";
 import { ArrowLeft, Play, Clock, Flame, Heart, Share2 } from "lucide-react";
 import { createT, useUser } from "@/context/UserContext";
 import { getPilatesSessionBySlug, pilatesSessions } from "@/data/pilates";
+import { getSessionText } from "@/data/sessions";
 
 export default function PilatesDetail() {
   const { sessionId } = useParams();
@@ -13,6 +14,7 @@ export default function PilatesDetail() {
   const from = (location.state as { from?: string } | null)?.from;
 
   const session = getPilatesSessionBySlug(sessionId || "") || pilatesSessions[0];
+  const sessionText = getSessionText(session, preferences.language);
   const isSaved = savedSessions.includes(session.id);
 
   const renderPlayer = () => {
@@ -23,7 +25,7 @@ export default function PilatesDetail() {
           <iframe
             className="w-full h-full"
             src={session.videoUrl}
-            title={session.title}
+            title={sessionText.title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
@@ -41,7 +43,7 @@ export default function PilatesDetail() {
         />
       );
     }
-    return <img src={session.image} alt={session.title} className="w-full h-full object-cover" />;
+    return <img src={session.image} alt={sessionText.title} className="w-full h-full object-cover" />;
   };
 
   return (
@@ -54,7 +56,7 @@ export default function PilatesDetail() {
           >
             <ArrowLeft className="w-5 h-5 text-foreground" />
           </button>
-          <h1 className="text-xl lg:text-2xl font-bold text-foreground">{session.title}</h1>
+          <h1 className="text-xl lg:text-2xl font-bold text-foreground">{sessionText.title}</h1>
         </header>
 
         <section className="mt-6 animate-slide-up">
@@ -102,7 +104,7 @@ export default function PilatesDetail() {
           </div>
 
           <p className="text-foreground/80 mt-4 leading-relaxed">
-            {session.description}
+            {sessionText.description}
           </p>
         </section>
 
@@ -111,7 +113,7 @@ export default function PilatesDetail() {
             onClick={() =>
               addSessionToHistory({
                 sessionId: session.id,
-                sessionTitle: session.title,
+                sessionTitle: sessionText.title,
                 duration: session.duration,
                 calories: session.calories,
                 activityType: "pilates",

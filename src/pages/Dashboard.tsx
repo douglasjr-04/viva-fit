@@ -5,6 +5,7 @@ import { createT, getLocale, useUser } from "@/context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { getSessionText, sessions } from "@/data/sessions";
 import { getWorkoutText, workouts } from "@/data/workouts";
+import { pilatesSessions } from "@/data/pilates";
 
 // Mock data para visualização
 const streakData = [0.3, 0.7, 1, 0.8, 0.5, 0.2, 0.6];
@@ -57,6 +58,10 @@ export default function Dashboard() {
     if (entry.activityType === "workout") {
       const workout = workouts.find(w => w.id === entry.sessionId);
       return workout ? getWorkoutText(workout, preferences.language).title : entry.sessionTitle;
+    }
+    if (entry.activityType === "pilates") {
+      const pilates = pilatesSessions.find(s => s.id === entry.sessionId);
+      return pilates ? getSessionText(pilates, preferences.language).title : entry.sessionTitle;
     }
     const yoga = sessions.find(s => s.id === entry.sessionId);
     if (yoga) return getSessionText(yoga, preferences.language).title;

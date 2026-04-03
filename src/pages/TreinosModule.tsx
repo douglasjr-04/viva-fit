@@ -72,7 +72,7 @@ export default function TreinosModule() {
   const today = new Date();
   const options: Intl.DateTimeFormatOptions = { weekday: "long", day: "numeric", month: "long" };
   const formattedDate = today.toLocaleDateString(getLocale(preferences.language), options);
-  const firstName = profile.name?.split(" ")[0] || "Oi";
+  const firstName = (profile.name || "").trim().split(" ")[0];
 
   const module = modules.find(m => m.id === (moduleId as WorkoutModuleId));
 
@@ -121,7 +121,10 @@ export default function TreinosModule() {
               <AvatarWithUpload size="sm" showEditButton={false} />
             </div>
             <div>
-              <p className="text-xl lg:text-2xl font-semibold text-foreground">{t("common.hello")}, {firstName}</p>
+              <p className="text-xl lg:text-2xl font-semibold text-foreground">
+                {t("common.hello")}
+                {firstName ? `, ${firstName}` : ""}
+              </p>
               <p className="text-sm text-muted-foreground capitalize">{formattedDate}</p>
             </div>
           </div>

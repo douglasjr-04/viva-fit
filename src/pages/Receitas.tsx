@@ -13,7 +13,7 @@ export default function Receitas() {
   const today = new Date();
   const options: Intl.DateTimeFormatOptions = { weekday: "long", day: "numeric", month: "long" };
   const formattedDate = today.toLocaleDateString(getLocale(preferences.language), options);
-  const firstName = profile.name?.split(" ")[0] || "Oi";
+  const firstName = (profile.name || "").trim().split(" ")[0];
 
   const categories = [
     {
@@ -53,7 +53,10 @@ export default function Receitas() {
               <AvatarWithUpload size="sm" showEditButton={false} />
             </div>
             <div>
-              <p className="text-xl lg:text-2xl font-semibold text-foreground">{t("common.hello")}, {firstName}</p>
+              <p className="text-xl lg:text-2xl font-semibold text-foreground">
+                {t("common.hello")}
+                {firstName ? `, ${firstName}` : ""}
+              </p>
               <p className="text-sm text-muted-foreground capitalize">{formattedDate}</p>
             </div>
           </div>
@@ -75,7 +78,7 @@ export default function Receitas() {
               <div
                 key={cat.key}
                 className={`rounded-3xl p-5 ${cat.color} border border-border/50 hover:shadow-md transition-all cursor-pointer flex items-center gap-4`}
-                onClick={() => navigate("/receitas")}
+                onClick={() => navigate(`/receitas/${cat.key}`)}
               >
                 <div className="w-12 h-12 rounded-2xl bg-card/80 backdrop-blur-sm flex items-center justify-center">
                   <Icon className="w-6 h-6 text-primary" />

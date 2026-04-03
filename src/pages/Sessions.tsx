@@ -57,7 +57,7 @@ export default function Sessions() {
   const today = new Date();
   const options: Intl.DateTimeFormatOptions = { weekday: "long", day: "numeric", month: "long" };
   const formattedDate = today.toLocaleDateString(getLocale(preferences.language), options);
-  const firstName = profile.name?.split(" ")[0] || "Oi";
+  const firstName = (profile.name || "").trim().split(" ")[0];
   const wakeUp = getSessionBySlug("wake-up") || sessions[0];
   const lowerBack = getSessionBySlug("lower-back") || sessions[1];
   const wakeUpText = getSessionText(wakeUp, preferences.language);
@@ -106,7 +106,10 @@ export default function Sessions() {
               <AvatarWithUpload size="sm" showEditButton={false} />
             </div>
             <div>
-              <p className="text-xl lg:text-2xl font-semibold text-foreground">{t("common.hello")}, {firstName}</p>
+              <p className="text-xl lg:text-2xl font-semibold text-foreground">
+                {t("common.hello")}
+                {firstName ? `, ${firstName}` : ""}
+              </p>
               <p className="text-sm text-muted-foreground capitalize">{formattedDate}</p>
             </div>
           </div>
@@ -336,7 +339,7 @@ export default function Sessions() {
         </section>
 
         <section id="all-sessions" className="mt-10 animate-fade-in">
-          <h2 className="text-2xl lg:text-3xl font-bold text-foreground">Yoga</h2>
+          <h2 className="text-2xl lg:text-3xl font-bold text-foreground">{t("nav.yoga")}</h2>
           <p className="text-sm text-muted-foreground mt-1">{t("yoga.choose")}</p>
         </section>
 

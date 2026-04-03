@@ -5,6 +5,7 @@ import { Search, Clock, Flame, Play } from 'lucide-react';
 import { useUser, createT } from '@/context/UserContext';
 import { pilatesSessions } from '@/data/pilates';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { getSessionText } from '@/data/sessions';
 
 interface PilatesSearchDrawerProps {
   open: boolean;
@@ -18,11 +19,15 @@ export function PilatesSearchDrawer({ open, onOpenChange }: PilatesSearchDrawerP
   const { preferences } = useUser();
   const t = createT(preferences.language);
 
+  const q = searchQuery.trim().toLowerCase();
   const filteredSessions = searchQuery.trim()
-    ? pilatesSessions.filter(s =>
-        s.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        s.description.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+    ? pilatesSessions.filter(s => {
+        const sessionText = getSessionText(s, preferences.language);
+        return (
+          sessionText.title.toLowerCase().includes(q) ||
+          sessionText.description.toLowerCase().includes(q)
+        );
+      })
     : pilatesSessions;
 
   return (
@@ -49,9 +54,11 @@ export function PilatesSearchDrawer({ open, onOpenChange }: PilatesSearchDrawerP
             </div>
           ) : (
             <div className="space-y-2">
-              {filteredSessions.map(session => (
-                <button
-                  key={session.id}
+              {filteredSessions.map(session => {
+                const sessionText = getSessionText(session, preferences.language);
+                return (
+                  <button
+                    key={session.id}
                   onClick={() => {
                     onOpenChange(false);
                     navigate(`/pilates/${session.slug}`, { state: { from: `${location.pathname}${location.search}` } });
@@ -61,7 +68,7 @@ export function PilatesSearchDrawer({ open, onOpenChange }: PilatesSearchDrawerP
                   <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
                     <img
                       src={session.image}
-                      alt={session.title}
+                      alt={sessionText.title}
                       className="w-full h-full object-cover"
                     />
                     <button className="absolute bottom-1 right-1 bg-primary text-primary-foreground rounded-full w-7 h-7 flex items-center justify-center">
@@ -69,7 +76,7 @@ export function PilatesSearchDrawer({ open, onOpenChange }: PilatesSearchDrawerP
                     </button>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-medium text-foreground truncate">{session.title}</h4>
+                    <h4 className="font-medium text-foreground truncate">{sessionText.title}</h4>
                     <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
                       <span className="flex items-center gap-1">
                         <Clock className="w-3 h-3" />
@@ -83,7 +90,8 @@ export function PilatesSearchDrawer({ open, onOpenChange }: PilatesSearchDrawerP
                     </div>
                   </div>
                 </button>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

@@ -45,7 +45,7 @@ export default function Treinos() {
   const today = new Date();
   const options: Intl.DateTimeFormatOptions = { weekday: "long", day: "numeric", month: "long" };
   const formattedDate = today.toLocaleDateString(getLocale(preferences.language), options);
-  const firstName = profile.name?.split(" ")[0] || "Oi";
+  const firstName = (profile.name || "").trim().split(" ")[0];
 
   const modules: Array<{
     id: WorkoutModuleId;
@@ -114,7 +114,10 @@ export default function Treinos() {
               <AvatarWithUpload size="sm" showEditButton={false} />
             </div>
             <div>
-              <p className="text-xl lg:text-2xl font-semibold text-foreground">{t("common.hello")}, {firstName}</p>
+              <p className="text-xl lg:text-2xl font-semibold text-foreground">
+                {t("common.hello")}
+                {firstName ? `, ${firstName}` : ""}
+              </p>
               <p className="text-sm text-muted-foreground capitalize">{formattedDate}</p>
             </div>
           </div>
@@ -212,22 +215,25 @@ export default function Treinos() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {areaSessionsPreview.map((session, index) => (
-              <VideoCard
-                key={session.id}
-                image={session.image}
-                title={session.title}
-                duration={session.duration}
-                calories={session.calories}
-                bgColor={bgColors[index % 4]}
-                size="lg"
-                onClick={() =>
-                  navigate(`/session/${session.slug}`, {
-                    state: { from: `${location.pathname}${location.search}` },
-                  })
-                }
-              />
-            ))}
+            {areaSessionsPreview.map((session, index) => {
+              const workoutText = getWorkoutText(session, preferences.language);
+              return (
+                <VideoCard
+                  key={session.id}
+                  image={session.image}
+                  title={workoutText.title}
+                  duration={session.duration}
+                  calories={session.calories}
+                  bgColor={bgColors[index % 4]}
+                  size="lg"
+                  onClick={() =>
+                    navigate(`/session/${session.slug}`, {
+                      state: { from: `${location.pathname}${location.search}` },
+                    })
+                  }
+                />
+              );
+            })}
           </div>
         </section>
 
@@ -251,38 +257,41 @@ export default function Treinos() {
           </div>
 
           <div className="space-y-3">
-            {programSessionsPreview.map((session) => (
-              <div
-                key={session.id}
-                onClick={() =>
-                  navigate(`/session/${session.slug}`, {
-                    state: { from: `${location.pathname}${location.search}` },
-                  })
-                }
-                className="bg-muted rounded-2xl p-4 flex items-center gap-4 cursor-pointer hover:bg-muted/80 transition-colors"
-              >
-                <div className="relative w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
-                  <img src={session.image} alt={session.title} className="w-full h-full object-cover" />
-                  <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full w-10 h-10 flex items-center justify-center">
-                    <Play className="w-4 h-4 ml-0.5" fill="currentColor" />
-                  </button>
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-card/30">
-                    <div className="h-full bg-primary w-0 rounded-r-full" />
+            {programSessionsPreview.map((session) => {
+              const workoutText = getWorkoutText(session, preferences.language);
+              return (
+                <div
+                  key={session.id}
+                  onClick={() =>
+                    navigate(`/session/${session.slug}`, {
+                      state: { from: `${location.pathname}${location.search}` },
+                    })
+                  }
+                  className="bg-muted rounded-2xl p-4 flex items-center gap-4 cursor-pointer hover:bg-muted/80 transition-colors"
+                >
+                  <div className="relative w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+                    <img src={session.image} alt={workoutText.title} className="w-full h-full object-cover" />
+                    <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full w-10 h-10 flex items-center justify-center">
+                      <Play className="w-4 h-4 ml-0.5" fill="currentColor" />
+                    </button>
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-card/30">
+                      <div className="h-full bg-primary w-0 rounded-r-full" />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Clock className="w-3 h-3" />
+                      <span>{session.duration}</span>
+                      <span>•</span>
+                      <Flame className="w-3 h-3" />
+                      <span>{session.calories}</span>
+                    </div>
+                    <h4 className="font-semibold text-foreground mt-1">{workoutText.title}</h4>
+                    <p className="text-xs text-muted-foreground mt-1">{workoutText.description}</p>
                   </div>
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <Clock className="w-3 h-3" />
-                    <span>{session.duration}</span>
-                    <span>•</span>
-                    <Flame className="w-3 h-3" />
-                    <span>{session.calories}</span>
-                  </div>
-                  <h4 className="font-semibold text-foreground mt-1">{session.title}</h4>
-                  <p className="text-xs text-muted-foreground mt-1">{session.description}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 

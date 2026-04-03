@@ -11,6 +11,8 @@ import Home from "./pages/Home";
 import Sessions from "./pages/Sessions";
 import Treinos from "./pages/Treinos";
 import Receitas from "./pages/Receitas";
+import ReceitasCategory from "./pages/ReceitasCategory";
+import ReceitaDetail from "./pages/ReceitaDetail";
 import TreinoDetail from "./pages/TreinoDetail";
 import TreinosModule from "./pages/TreinosModule";
 import SessionDetail from "./pages/SessionDetail";
@@ -83,6 +85,8 @@ const App = () => (
               <Route path="/treinos" element={<Treinos />} />
               <Route path="/treinos/modulo/:moduleId" element={<TreinosModule />} />
               <Route path="/receitas" element={<Receitas />} />
+              <Route path="/receitas/:categoryKey" element={<ReceitasCategory />} />
+              <Route path="/receitas/:categoryKey/:recipeSlug" element={<ReceitaDetail />} />
               <Route path="/treino/:workoutId" element={<TreinoDetail />} />
               <Route path="/pilates/:sessionId" element={<PilatesDetail />} />
               <Route path="/session/:sessionId" element={<SessionDetail />} />

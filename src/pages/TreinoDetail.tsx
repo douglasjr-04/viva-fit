@@ -231,7 +231,7 @@ export default function TreinoDetail() {
             onClick={() =>
               addSessionToHistory({
                 sessionId: workout.id,
-                sessionTitle: workout.title,
+                sessionTitle: workoutText.title,
                 duration: workout.duration,
                 calories: workout.calories,
                 activityType: "workout",

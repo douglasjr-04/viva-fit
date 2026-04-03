@@ -2185,12 +2185,176 @@ export const workouts: Workout[] = [
   },
 ];
 
+function applyReplacements(text: string, replacements: Array<[string, string]>) {
+  return replacements.reduce((acc, [from, to]) => acc.replaceAll(from, to), text);
+}
+
+function translateWorkoutString(input: string, language: Language) {
+  if (!input) return input;
+  if (language === "pt") return input;
+
+  if (language === "en") {
+    return applyReplacements(input, [
+      ["Treino ", "Workout "],
+      ["Treino A", "Workout A"],
+      ["Treino B", "Workout B"],
+      ["Treino C", "Workout C"],
+      ["Treino D", "Workout D"],
+      ["Treino E", "Workout E"],
+      ["Emagrecimento", "Weight Loss"],
+      ["ganhar massa muscular", "gain muscle mass"],
+      ["massa muscular", "muscle mass"],
+      ["Hipertrofia", "Hypertrophy"],
+      ["Glúteos", "Glutes"],
+      ["glúteos", "glutes"],
+      ["Abdomen", "Abs"],
+      ["abdômen", "abs"],
+      ["abdomen", "abs"],
+      ["Pernas", "Legs"],
+      ["pernas", "legs"],
+      ["Braços", "Arms"],
+      ["braços", "arms"],
+      ["Costas", "Back"],
+      ["costas", "back"],
+      ["Ombros", "Shoulders"],
+      ["ombros", "shoulders"],
+      ["Peito", "Chest"],
+      ["peito", "chest"],
+      ["Tríceps", "Triceps"],
+      ["tríceps", "triceps"],
+      ["Bíceps", "Biceps"],
+      ["bíceps", "biceps"],
+      ["Inferiores", "Lower Body"],
+      ["Superior", "Upper"],
+      ["Membros Superiores", "Upper Body"],
+      ["Membros Inferiores", "Lower Body"],
+      ["sem equipamentos", "no equipment"],
+      ["com Halteres", "with Dumbbells"],
+      ["com halteres", "with dumbbells"],
+      ["na academia", "at the gym"],
+      ["em casa", "at home"],
+      ["Intervalo padrão", "Default rest"],
+      ["Agachamento", "Squat"],
+      ["Afundo", "Lunge"],
+      ["Flexão", "Push-up"],
+      ["Prancha", "Plank"],
+      ["Abdominal", "Crunch"],
+      ["Polichinelo", "Jumping jack"],
+      ["Alongamento", "Stretch"],
+    ]);
+  }
+
+  if (language === "es") {
+    return applyReplacements(input, [
+      ["Treino ", "Entrenamiento "],
+      ["Treino A", "Entrenamiento A"],
+      ["Treino B", "Entrenamiento B"],
+      ["Treino C", "Entrenamiento C"],
+      ["Treino D", "Entrenamiento D"],
+      ["Treino E", "Entrenamiento E"],
+      ["Emagrecimento", "Pérdida de peso"],
+      ["ganhar massa muscular", "ganar masa muscular"],
+      ["massa muscular", "masa muscular"],
+      ["Hipertrofia", "Hipertrofia"],
+      ["Glúteos", "Glúteos"],
+      ["glúteos", "glúteos"],
+      ["Abdomen", "Abdomen"],
+      ["abdômen", "abdomen"],
+      ["Pernas", "Piernas"],
+      ["pernas", "piernas"],
+      ["Braços", "Brazos"],
+      ["braços", "brazos"],
+      ["Costas", "Espalda"],
+      ["costas", "espalda"],
+      ["Ombros", "Hombros"],
+      ["ombros", "hombros"],
+      ["Peito", "Pecho"],
+      ["peito", "pecho"],
+      ["Tríceps", "Tríceps"],
+      ["tríceps", "tríceps"],
+      ["Bíceps", "Bíceps"],
+      ["bíceps", "bíceps"],
+      ["Inferiores", "Inferiores"],
+      ["Superior", "Superior"],
+      ["Membros Superiores", "Tren superior"],
+      ["Membros Inferiores", "Tren inferior"],
+      ["sem equipamentos", "sin equipamiento"],
+      ["com Halteres", "con mancuernas"],
+      ["com halteres", "con mancuernas"],
+      ["na academia", "en el gimnasio"],
+      ["em casa", "en casa"],
+      ["Intervalo padrão", "Descanso estándar"],
+      ["Agachamento", "Sentadilla"],
+      ["Afundo", "Zancada"],
+      ["Flexão", "Flexión"],
+      ["Prancha", "Plancha"],
+      ["Abdominal", "Abdominal"],
+      ["Polichinelo", "Saltos"],
+      ["Alongamento", "Estiramiento"],
+    ]);
+  }
+
+  if (language === "fr") {
+    return applyReplacements(input, [
+      ["Treino ", "Entraînement "],
+      ["Treino A", "Entraînement A"],
+      ["Treino B", "Entraînement B"],
+      ["Treino C", "Entraînement C"],
+      ["Treino D", "Entraînement D"],
+      ["Treino E", "Entraînement E"],
+      ["Emagrecimento", "Perte de poids"],
+      ["ganhar massa muscular", "prendre de la masse musculaire"],
+      ["massa muscular", "masse musculaire"],
+      ["Hipertrofia", "Hypertrophie"],
+      ["Glúteos", "Fessiers"],
+      ["glúteos", "fessiers"],
+      ["Abdomen", "Abdos"],
+      ["abdômen", "abdos"],
+      ["Pernas", "Jambes"],
+      ["pernas", "jambes"],
+      ["Braços", "Bras"],
+      ["braços", "bras"],
+      ["Costas", "Dos"],
+      ["costas", "dos"],
+      ["Ombros", "Épaules"],
+      ["ombros", "épaules"],
+      ["Peito", "Pectoraux"],
+      ["peito", "pectoraux"],
+      ["Tríceps", "Triceps"],
+      ["tríceps", "triceps"],
+      ["Bíceps", "Biceps"],
+      ["bíceps", "biceps"],
+      ["Inferiores", "Bas du corps"],
+      ["Superior", "Haut"],
+      ["Membros Superiores", "Haut du corps"],
+      ["Membros Inferiores", "Bas du corps"],
+      ["sem equipamentos", "sans équipement"],
+      ["com Halteres", "avec haltères"],
+      ["com halteres", "avec haltères"],
+      ["na academia", "à la salle"],
+      ["em casa", "à la maison"],
+      ["Intervalo padrão", "Repos par défaut"],
+      ["Agachamento", "Squat"],
+      ["Afundo", "Fente"],
+      ["Flexão", "Pompe"],
+      ["Prancha", "Planche"],
+      ["Abdominal", "Abdo"],
+      ["Polichinelo", "Jumping jack"],
+      ["Alongamento", "Étirement"],
+    ]);
+  }
+
+  return input;
+}
+
 export function getWorkoutText(workout: Workout, language: Language) {
   const localized = workout.i18n?.[language];
   return {
-    title: localized?.title ?? workout.title,
-    description: localized?.description ?? workout.description,
-    exercises: localized?.exercises ?? workout.exercises,
+    title: localized?.title ?? translateWorkoutString(workout.title, language),
+    description: localized?.description ?? translateWorkoutString(workout.description, language),
+    exercises:
+      localized?.exercises ??
+      (language === "pt" ? workout.exercises : workout.exercises.map((e) => translateWorkoutString(e, language))),
     exerciseItems: workout.exerciseItems,
   };
 }
