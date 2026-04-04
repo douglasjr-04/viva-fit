@@ -44,7 +44,7 @@ export const sessions: Session[] = [
     category: "destaque",
     image: yogaBlackOutfit,
     exercises: ["Respiração profunda", "Espreguiçar consciente", "Saudação ao sol leve", "Alongamento de pescoço", "Torção suave"],
-    videoUrl: "https://www.youtube.com/embed/aqz-KE-bpKQ",
+    videoUrl: "/videos/yoga-matinal.mp4",
     i18n: {
       en: {
         title: "Wake Up",
@@ -74,6 +74,7 @@ export const sessions: Session[] = [
     category: "destaque",
     image: yogaTealCurly,
     exercises: ["Postura do gato-vaca", "Joelhos ao peito", "Torção deitada", "Ponte", "Criança prolongada"],
+    videoUrl: "/videos/yoga-lombar.mp4",
     i18n: {
       en: {
         title: "Lower Back",
@@ -105,6 +106,7 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaLowerBack,
     exercises: ["Postura do gato-vaca", "Joelhos ao peito", "Torção deitada", "Ponte", "Criança prolongada"],
+    videoUrl: "/videos/yoga-lombar.mp4",
     i18n: {
       en: {
         title: "Lower Back",
@@ -134,6 +136,7 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaNeck,
     exercises: ["Rotação de cabeça", "Inclinação lateral", "Alongamento do trapézio", "Liberação de ombros", "Respiração relaxante"],
+    videoUrl: "/videos/yoga-relaxamento-2.mp4",
     i18n: {
       en: {
         title: "Neck",
@@ -163,6 +166,7 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaMorning,
     exercises: ["Respiração solar", "Saudação ao sol", "Guerreiro I", "Triângulo", "Árvore"],
+    videoUrl: "/videos/yoga-matinal.mp4",
     i18n: {
       en: {
         title: "Morning",
@@ -192,6 +196,7 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaHip,
     exercises: ["Borboleta", "Pomba", "Lagarto", "Agulha", "Sapo"],
+    videoUrl: "/videos/yoga-alongamento.mp4",
     i18n: {
       en: {
         title: "Hips",
@@ -221,6 +226,7 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaShoulder,
     exercises: ["Rotação de ombros", "Águia", "Vaca face", "Alongamento de braços", "Liberação escapular"],
+    videoUrl: "/videos/yoga-relaxamento-4.mp4",
     i18n: {
       en: {
         title: "Shoulders",
@@ -250,6 +256,7 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaEvening,
     exercises: ["Respiração 4-7-8", "Pernas na parede", "Torção relaxante", "Criança", "Savasana guiado"],
+    videoUrl: "/videos/yoga-relaxamento.mp4",
     i18n: {
       en: {
         title: "Evening",
@@ -279,6 +286,7 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaBalance,
     exercises: ["Árvore", "Guerreiro III", "Meia lua", "Dançarino", "Corvo preparatório"],
+    videoUrl: "/videos/yoga-desafio-3.mp4",
     i18n: {
       en: {
         title: "Balance",
@@ -308,6 +316,7 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaFlexibility,
     exercises: ["Splits preparatório", "Rã profunda", "Cachorro olhando para baixo", "Pinça sentada", "Ponte completa"],
+    videoUrl: "/videos/yoga-alongamento-4.mp4",
     i18n: {
       en: {
         title: "Flexibility",
@@ -339,6 +348,7 @@ export const sessions: Session[] = [
     category: "programa",
     image: yogaMorning,
     exercises: ["Respiração energizante", "Saudação ao sol A", "Saudação ao sol B", "Guerreiro flow", "Meditação final"],
+    videoUrl: "/videos/yoga-matinal-2.mp4",
     i18n: {
       en: {
         title: "Complete Morning Routine",
@@ -359,28 +369,29 @@ export const sessions: Session[] = [
   },
   {
     id: 12,
-    slug: "relaxamento-profundo",
-    title: "Relaxamento Profundo",
+    slug: "relaxamento",
+    title: "Relaxamento",
     description: "Sessão restaurativa para aliviar o estresse e relaxar completamente.",
     duration: "25 min",
     calories: "150 kcal",
     level: "Todos",
-    category: "programa",
+    category: "area",
     image: yogaEvening,
     exercises: ["Respiração diafragmática", "Corpo scan", "Pernas na parede", "Torção suportada", "Savasana prolongado"],
+    videoUrl: "/videos/yoga-relaxamento.mp4",
     i18n: {
       en: {
-        title: "Deep Relaxation",
+        title: "Relaxation",
         description: "Restorative session to reduce stress and fully relax.",
         exercises: ["Diaphragmatic breathing", "Body scan", "Legs up the wall", "Supported twist", "Extended savasana"],
       },
       es: {
-        title: "Relajación Profunda",
+        title: "Relajación",
         description: "Sesión restaurativa para aliviar el estrés y relajarte por completo.",
         exercises: ["Respiración diafragmática", "Escaneo corporal", "Piernas en la pared", "Torsión con apoyo", "Savasana prolongado"],
       },
       fr: {
-        title: "Relaxation Profonde",
+        title: "Relaxation",
         description: "Séance restaurative pour réduire le stress et se détendre pleinement.",
         exercises: ["Respiration diaphragmatique", "Scan corporel", "Jambes au mur", "Torsion soutenue", "Savasana prolongé"],
       },
@@ -397,6 +408,7 @@ export const sessions: Session[] = [
     category: "programa",
     image: yogaBalance,
     exercises: ["Prancha", "Barco", "Bicicleta", "Prancha lateral", "Ponte com elevação"],
+    videoUrl: "/videos/yoga-desafio.mp4",
     i18n: {
       en: {
         title: "Core Strength",
@@ -417,28 +429,29 @@ export const sessions: Session[] = [
   },
   {
     id: 14,
-    slug: "saudacao-sol",
-    title: "Saudação ao Sol",
+    slug: "alongamento",
+    title: "Alongamento",
     description: "Alongamento completo para todo o corpo.",
     duration: "30 min",
     calories: "350 kcal",
     level: "Iniciante",
-    category: "programa",
-    image: yogaBlackOutfit,
+    category: "area",
+    image: yogaBalance,
     exercises: ["Saudação ao sol A", "Saudação ao sol B", "Variações", "Flow dinâmico", "Savasana"],
+    videoUrl: "/videos/yoga-alongamento.mp4",
     i18n: {
       en: {
-        title: "Sun Salutation",
+        title: "Stretching",
         description: "Full-body stretch for the whole body.",
         exercises: ["Sun salutation A", "Sun salutation B", "Variations", "Dynamic flow", "Savasana"],
       },
       es: {
-        title: "Saludo al Sol",
+        title: "Estiramiento",
         description: "Estiramiento completo para todo el cuerpo.",
         exercises: ["Saludo al sol A", "Saludo al sol B", "Variaciones", "Flujo dinámico", "Savasana"],
       },
       fr: {
-        title: "Salutation au Soleil",
+        title: "Étirement",
         description: "Étirement complet pour tout le corps.",
         exercises: ["Salutation au soleil A", "Salutation au soleil B", "Variations", "Flow dynamique", "Savasana"],
       },
@@ -455,6 +468,7 @@ export const sessions: Session[] = [
     category: "programa",
     image: yogaMorning,
     exercises: ["Respiração energizante", "Saudação ao sol", "Guerreiro flow", "Equilíbrio", "Meditação ativa"],
+    videoUrl: "/videos/yoga-matinal-3.mp4",
     i18n: {
       en: {
         title: "Morning Awakening",
@@ -475,30 +489,422 @@ export const sessions: Session[] = [
   },
   {
     id: 16,
-    slug: "yoga-intensivo",
-    title: "Yoga Intensivo",
+    slug: "desafio",
+    title: "Desafio",
     description: "Desafie seus limites com posturas avançadas e fluxos intensos.",
     duration: "35 min",
     calories: "450 kcal",
     level: "Avançado",
-    category: "programa",
-    image: yogaFlexibility,
+    category: "area",
+    image: yogaBlackOutfit,
     exercises: ["Aquecimento dinâmico", "Crow pose", "Headstand", "Wheel pose", "Arm balances", "Cool down"],
+    videoUrl: "/videos/yoga-desafio.mp4",
     i18n: {
       en: {
-        title: "Intense Yoga",
+        title: "Challenge",
         description: "Challenge your limits with advanced poses and intense flows.",
         exercises: ["Dynamic warm-up", "Crow pose", "Headstand", "Wheel pose", "Arm balances", "Cool down"],
       },
       es: {
-        title: "Yoga Intensivo",
+        title: "Desafío",
         description: "Desafía tus límites con posturas avanzadas y flujos intensos.",
         exercises: ["Calentamiento dinámico", "Postura del cuervo", "Parada de cabeza", "Rueda", "Equilibrios en brazos", "Enfriamiento"],
       },
       fr: {
-        title: "Yoga Intensif",
+        title: "Défi",
         description: "Repoussez vos limites avec des postures avancées et des flows intenses.",
         exercises: ["Échauffement dynamique", "Posture du corbeau", "Équilibre sur la tête", "Posture de la roue", "Équilibres sur les bras", "Retour au calme"],
+      },
+    },
+  }
+  ,
+  {
+    id: 17,
+    slug: "alongamento-2",
+    title: "Alongamento 2",
+    description: "Alongamento completo para todo o corpo.",
+    duration: "30 min",
+    calories: "350 kcal",
+    level: "Iniciante",
+    category: "area",
+    image: yogaBalance,
+    exercises: ["Saudação ao sol A (2)", "Saudação ao sol B (2)", "Variações (2)", "Flow dinâmico (2)", "Savasana (2)"],
+    videoUrl: "/videos/yoga-alongamento-1.mp4",
+    i18n: {
+      en: {
+        title: "Stretching 2",
+        description: "Full-body stretch for the whole body.",
+        exercises: ["Sun salutation A (2)", "Sun salutation B (2)", "Variations (2)", "Dynamic flow (2)", "Savasana (2)"],
+      },
+      es: {
+        title: "Estiramiento 2",
+        description: "Estiramiento completo para todo el cuerpo.",
+        exercises: ["Saludo al sol A (2)", "Saludo al sol B (2)", "Variaciones (2)", "Flujo dinámico (2)", "Savasana (2)"],
+      },
+      fr: {
+        title: "Étirement 2",
+        description: "Étirement complet pour tout le corps.",
+        exercises: ["Salutation au soleil A (2)", "Salutation au soleil B (2)", "Variations (2)", "Flow dynamique (2)", "Savasana (2)"],
+      },
+    },
+  },
+  {
+    id: 18,
+    slug: "alongamento-3",
+    title: "Alongamento 3",
+    description: "Alongamento completo para todo o corpo.",
+    duration: "30 min",
+    calories: "350 kcal",
+    level: "Iniciante",
+    category: "area",
+    image: yogaBalance,
+    exercises: ["Saudação ao sol A (3)", "Saudação ao sol B (3)", "Variações (3)", "Flow dinâmico (3)", "Savasana (3)"],
+    videoUrl: "/videos/yoga-alongamento-4.mp4",
+    i18n: {
+      en: {
+        title: "Stretching 3",
+        description: "Full-body stretch for the whole body.",
+        exercises: ["Sun salutation A (3)", "Sun salutation B (3)", "Variations (3)", "Dynamic flow (3)", "Savasana (3)"],
+      },
+      es: {
+        title: "Estiramiento 3",
+        description: "Estiramiento completo para todo el cuerpo.",
+        exercises: ["Saludo al sol A (3)", "Saludo al sol B (3)", "Variaciones (3)", "Flujo dinámico (3)", "Savasana (3)"],
+      },
+      fr: {
+        title: "Étirement 3",
+        description: "Étirement complet pour tout le corps.",
+        exercises: ["Salutation au soleil A (3)", "Salutation au soleil B (3)", "Variations (3)", "Flow dynamique (3)", "Savasana (3)"],
+      },
+    },
+  },
+  {
+    id: 19,
+    slug: "matinal-2",
+    title: "Matinal 2",
+    description: "Comece o dia com energia e disposição através de movimentos suaves.",
+    duration: "15 min",
+    calories: "200 kcal",
+    level: "Iniciante",
+    category: "area",
+    image: yogaMorning,
+    exercises: ["Respiração solar (2)", "Saudação ao sol (2)", "Guerreiro I (2)", "Triângulo (2)", "Árvore (2)"],
+    videoUrl: "/videos/yoga-matinal-1.mp4",
+    i18n: {
+      en: {
+        title: "Morning 2",
+        description: "Start your day with energy through gentle movements.",
+        exercises: ["Sun breathing (2)", "Sun salutation (2)", "Warrior I (2)", "Triangle (2)", "Tree (2)"],
+      },
+      es: {
+        title: "Mañana 2",
+        description: "Empieza el día con energía con movimientos suaves.",
+        exercises: ["Respiración solar (2)", "Saludo al sol (2)", "Guerrero I (2)", "Triángulo (2)", "Árbol (2)"],
+      },
+      fr: {
+        title: "Matin 2",
+        description: "Commencez la journée avec énergie grâce à des mouvements doux.",
+        exercises: ["Respiration solaire (2)", "Salutation au soleil (2)", "Guerrier I (2)", "Triangle (2)", "Arbre (2)"],
+      },
+    },
+  },
+  {
+    id: 20,
+    slug: "matinal-3",
+    title: "Matinal 3",
+    description: "Comece o dia com energia e disposição através de movimentos suaves.",
+    duration: "15 min",
+    calories: "200 kcal",
+    level: "Iniciante",
+    category: "area",
+    image: yogaMorning,
+    exercises: ["Respiração solar (3)", "Saudação ao sol (3)", "Guerreiro I (3)", "Triângulo (3)", "Árvore (3)"],
+    videoUrl: "/videos/yoga-matinal-2.mp4",
+    i18n: {
+      en: {
+        title: "Morning 3",
+        description: "Start your day with energy through gentle movements.",
+        exercises: ["Sun breathing (3)", "Sun salutation (3)", "Warrior I (3)", "Triangle (3)", "Tree (3)"],
+      },
+      es: {
+        title: "Mañana 3",
+        description: "Empieza el día con energía con movimientos suaves.",
+        exercises: ["Respiración solar (3)", "Saludo al sol (3)", "Guerrero I (3)", "Triángulo (3)", "Árbol (3)"],
+      },
+      fr: {
+        title: "Matin 3",
+        description: "Commencez la journée avec énergie grâce à des mouvements doux.",
+        exercises: ["Respiration solaire (3)", "Salutation au soleil (3)", "Guerrier I (3)", "Triangle (3)", "Arbre (3)"],
+      },
+    },
+  },
+  {
+    id: 21,
+    slug: "matinal-4",
+    title: "Matinal 4",
+    description: "Comece o dia com energia e disposição através de movimentos suaves.",
+    duration: "15 min",
+    calories: "200 kcal",
+    level: "Iniciante",
+    category: "area",
+    image: yogaMorning,
+    exercises: ["Respiração solar (4)", "Saudação ao sol (4)", "Guerreiro I (4)", "Triângulo (4)", "Árvore (4)"],
+    videoUrl: "/videos/yoga-matinal-3.mp4",
+    i18n: {
+      en: {
+        title: "Morning 4",
+        description: "Start your day with energy through gentle movements.",
+        exercises: ["Sun breathing (4)", "Sun salutation (4)", "Warrior I (4)", "Triangle (4)", "Tree (4)"],
+      },
+      es: {
+        title: "Mañana 4",
+        description: "Empieza el día con energía con movimientos suaves.",
+        exercises: ["Respiración solar (4)", "Saludo al sol (4)", "Guerrero I (4)", "Triángulo (4)", "Árbol (4)"],
+      },
+      fr: {
+        title: "Matin 4",
+        description: "Commencez la journée avec énergie grâce à des mouvements doux.",
+        exercises: ["Respiration solaire (4)", "Salutation au soleil (4)", "Guerrier I (4)", "Triangle (4)", "Arbre (4)"],
+      },
+    },
+  },
+  {
+    id: 22,
+    slug: "relaxamento-2",
+    title: "Relaxamento 2",
+    description: "Sessão restaurativa para aliviar o estresse e relaxar completamente.",
+    duration: "25 min",
+    calories: "150 kcal",
+    level: "Todos",
+    category: "area",
+    image: yogaEvening,
+    exercises: ["Respiração diafragmática (2)", "Corpo scan (2)", "Pernas na parede (2)", "Torção suportada (2)", "Savasana prolongado (2)"],
+    videoUrl: "/videos/yoga-relaxamento-2.mp4",
+    i18n: {
+      en: {
+        title: "Relaxation 2",
+        description: "Restorative session to reduce stress and fully relax.",
+        exercises: ["Diaphragmatic breathing (2)", "Body scan (2)", "Legs up the wall (2)", "Supported twist (2)", "Extended savasana (2)"],
+      },
+      es: {
+        title: "Relajación 2",
+        description: "Sesión restaurativa para aliviar el estrés y relajarte por completo.",
+        exercises: ["Respiración diafragmática (2)", "Escaneo corporal (2)", "Piernas en la pared (2)", "Torsión con apoyo (2)", "Savasana prolongado (2)"],
+      },
+      fr: {
+        title: "Relaxation 2",
+        description: "Séance restaurative pour réduire le stress et se détendre pleinement.",
+        exercises: ["Respiration diaphragmatique (2)", "Scan corporel (2)", "Jambes au mur (2)", "Torsion soutenue (2)", "Savasana prolongé (2)"],
+      },
+    },
+  },
+  {
+    id: 23,
+    slug: "relaxamento-3",
+    title: "Relaxamento 3",
+    description: "Sessão restaurativa para aliviar o estresse e relaxar completamente.",
+    duration: "25 min",
+    calories: "150 kcal",
+    level: "Todos",
+    category: "area",
+    image: yogaEvening,
+    exercises: ["Respiração diafragmática (3)", "Corpo scan (3)", "Pernas na parede (3)", "Torção suportada (3)", "Savasana prolongado (3)"],
+    videoUrl: "/videos/yoga-relaxamento-3.mp4",
+    i18n: {
+      en: {
+        title: "Relaxation 3",
+        description: "Restorative session to reduce stress and fully relax.",
+        exercises: ["Diaphragmatic breathing (3)", "Body scan (3)", "Legs up the wall (3)", "Supported twist (3)", "Extended savasana (3)"],
+      },
+      es: {
+        title: "Relajación 3",
+        description: "Sesión restaurativa para aliviar el estrés y relajarte por completo.",
+        exercises: ["Respiración diafragmática (3)", "Escaneo corporal (3)", "Piernas en la pared (3)", "Torsión con apoyo (3)", "Savasana prolongado (3)"],
+      },
+      fr: {
+        title: "Relaxation 3",
+        description: "Séance restaurative pour réduire le stress et se détendre pleinement.",
+        exercises: ["Respiration diaphragmatique (3)", "Scan corporel (3)", "Jambes au mur (3)", "Torsion soutenue (3)", "Savasana prolongé (3)"],
+      },
+    },
+  },
+  {
+    id: 24,
+    slug: "relaxamento-4",
+    title: "Relaxamento 4",
+    description: "Sessão restaurativa para aliviar o estresse e relaxar completamente.",
+    duration: "25 min",
+    calories: "150 kcal",
+    level: "Todos",
+    category: "area",
+    image: yogaEvening,
+    exercises: ["Respiração diafragmática (4)", "Corpo scan (4)", "Pernas na parede (4)", "Torção suportada (4)", "Savasana prolongado (4)"],
+    videoUrl: "/videos/yoga-relaxamento-4.mp4",
+    i18n: {
+      en: {
+        title: "Relaxation 4",
+        description: "Restorative session to reduce stress and fully relax.",
+        exercises: ["Diaphragmatic breathing (4)", "Body scan (4)", "Legs up the wall (4)", "Supported twist (4)", "Extended savasana (4)"],
+      },
+      es: {
+        title: "Relajación 4",
+        description: "Sesión restaurativa para aliviar el estrés y relajarte por completo.",
+        exercises: ["Respiración diafragmática (4)", "Escaneo corporal (4)", "Piernas en la pared (4)", "Torsión con apoyo (4)", "Savasana prolongado (4)"],
+      },
+      fr: {
+        title: "Relaxation 4",
+        description: "Séance restaurative pour réduire le stress et se détendre pleinement.",
+        exercises: ["Respiration diaphragmatique (4)", "Scan corporel (4)", "Jambes au mur (4)", "Torsion soutenue (4)", "Savasana prolongé (4)"],
+      },
+    },
+  },
+  {
+    id: 25,
+    slug: "lombar-2",
+    title: "Lombar 2",
+    description: "Sessão completa para cuidar da saúde da sua coluna lombar.",
+    duration: "12 min",
+    calories: "180 kcal",
+    level: "Iniciante",
+    category: "area",
+    image: yogaLowerBack,
+    exercises: ["Postura do gato-vaca (2)", "Joelhos ao peito (2)", "Torção deitada (2)", "Ponte (2)", "Criança prolongada (2)"],
+    videoUrl: "/videos/yoga-lombar-2.mp4",
+    i18n: {
+      en: {
+        title: "Lower Back 2",
+        description: "Complete session to support your lower-back health.",
+        exercises: ["Cat-cow (2)", "Knees to chest (2)", "Supine twist (2)", "Bridge (2)", "Extended child's pose (2)"],
+      },
+      es: {
+        title: "Zona Lumbar 2",
+        description: "Sesión completa para cuidar la salud de tu zona lumbar.",
+        exercises: ["Gato-vaca (2)", "Rodillas al pecho (2)", "Torsión tumbado (2)", "Puente (2)", "Postura del niño prolongada (2)"],
+      },
+      fr: {
+        title: "Lombaires 2",
+        description: "Séance complète pour prendre soin de votre bas du dos.",
+        exercises: ["Chat-vache (2)", "Genoux à la poitrine (2)", "Torsion au sol (2)", "Pont (2)", "Posture de l’enfant prolongée (2)"],
+      },
+    },
+  },
+  {
+    id: 26,
+    slug: "lombar-3",
+    title: "Lombar 3",
+    description: "Sessão completa para cuidar da saúde da sua coluna lombar.",
+    duration: "12 min",
+    calories: "180 kcal",
+    level: "Iniciante",
+    category: "area",
+    image: yogaLowerBack,
+    exercises: ["Postura do gato-vaca (3)", "Joelhos ao peito (3)", "Torção deitada (3)", "Ponte (3)", "Criança prolongada (3)"],
+    videoUrl: "/videos/yoga-lombar-3.mp4",
+    i18n: {
+      en: {
+        title: "Lower Back 3",
+        description: "Complete session to support your lower-back health.",
+        exercises: ["Cat-cow (3)", "Knees to chest (3)", "Supine twist (3)", "Bridge (3)", "Extended child's pose (3)"],
+      },
+      es: {
+        title: "Zona Lumbar 3",
+        description: "Sesión completa para cuidar la salud de tu zona lumbar.",
+        exercises: ["Gato-vaca (3)", "Rodillas al pecho (3)", "Torsión tumbado (3)", "Puente (3)", "Postura del niño prolongada (3)"],
+      },
+      fr: {
+        title: "Lombaires 3",
+        description: "Séance complète pour prendre soin de votre bas du dos.",
+        exercises: ["Chat-vache (3)", "Genoux à la poitrine (3)", "Torsion au sol (3)", "Pont (3)", "Posture de l’enfant prolongée (3)"],
+      },
+    },
+  },
+  {
+    id: 27,
+    slug: "desafio-2",
+    title: "Desafio 2",
+    description: "Desafie seus limites com posturas avançadas e fluxos intensos.",
+    duration: "35 min",
+    calories: "450 kcal",
+    level: "Avançado",
+    category: "area",
+    image: yogaBlackOutfit,
+    exercises: ["Aquecimento dinâmico (2)", "Crow pose (2)", "Headstand (2)", "Wheel pose (2)", "Arm balances (2)", "Cool down (2)"],
+    videoUrl: "/videos/yoga-desafio-2.mp4",
+    i18n: {
+      en: {
+        title: "Challenge 2",
+        description: "Challenge your limits with advanced poses and intense flows.",
+        exercises: ["Dynamic warm-up (2)", "Crow pose (2)", "Headstand (2)", "Wheel pose (2)", "Arm balances (2)", "Cool down (2)"],
+      },
+      es: {
+        title: "Desafío 2",
+        description: "Desafía tus límites con posturas avanzadas y flujos intensos.",
+        exercises: ["Calentamiento dinámico (2)", "Postura del cuervo (2)", "Parada de cabeza (2)", "Rueda (2)", "Equilibrios en brazos (2)", "Enfriamiento (2)"],
+      },
+      fr: {
+        title: "Défi 2",
+        description: "Repoussez vos limites avec des postures avancées et des flows intenses.",
+        exercises: ["Échauffement dynamique (2)", "Posture du corbeau (2)", "Équilibre sur la tête (2)", "Posture de la roue (2)", "Équilibres sur les bras (2)", "Retour au calme (2)"],
+      },
+    },
+  },
+  {
+    id: 28,
+    slug: "desafio-3",
+    title: "Desafio 3",
+    description: "Desafie seus limites com posturas avançadas e fluxos intensos.",
+    duration: "35 min",
+    calories: "450 kcal",
+    level: "Avançado",
+    category: "area",
+    image: yogaBlackOutfit,
+    exercises: ["Aquecimento dinâmico (3)", "Crow pose (3)", "Headstand (3)", "Wheel pose (3)", "Arm balances (3)", "Cool down (3)"],
+    videoUrl: "/videos/yoga-desafio-3.mp4",
+    i18n: {
+      en: {
+        title: "Challenge 3",
+        description: "Challenge your limits with advanced poses and intense flows.",
+        exercises: ["Dynamic warm-up (3)", "Crow pose (3)", "Headstand (3)", "Wheel pose (3)", "Arm balances (3)", "Cool down (3)"],
+      },
+      es: {
+        title: "Desafío 3",
+        description: "Desafía tus límites con posturas avanzadas y flujos intensos.",
+        exercises: ["Calentamiento dinámico (3)", "Postura del cuervo (3)", "Parada de cabeza (3)", "Rueda (3)", "Equilibrios en brazos (3)", "Enfriamiento (3)"],
+      },
+      fr: {
+        title: "Défi 3",
+        description: "Repoussez vos limites avec des postures avancées et des flows intenses.",
+        exercises: ["Échauffement dynamique (3)", "Posture du corbeau (3)", "Équilibre sur la tête (3)", "Posture de la roue (3)", "Équilibres sur les bras (3)", "Retour au calme (3)"],
+      },
+    },
+  },
+  {
+    id: 29,
+    slug: "desafio-4",
+    title: "Desafio 4",
+    description: "Desafie seus limites com posturas avançadas e fluxos intensos.",
+    duration: "35 min",
+    calories: "450 kcal",
+    level: "Avançado",
+    category: "area",
+    image: yogaBlackOutfit,
+    exercises: ["Aquecimento dinâmico (4)", "Crow pose (4)", "Headstand (4)", "Wheel pose (4)", "Arm balances (4)", "Cool down (4)"],
+    videoUrl: "/videos/yoga-desafio-4.mp4",
+    i18n: {
+      en: {
+        title: "Challenge 4",
+        description: "Challenge your limits with advanced poses and intense flows.",
+        exercises: ["Dynamic warm-up (4)", "Crow pose (4)", "Headstand (4)", "Wheel pose (4)", "Arm balances (4)", "Cool down (4)"],
+      },
+      es: {
+        title: "Desafío 4",
+        description: "Desafía tus límites con posturas avanzadas y flujos intensos.",
+        exercises: ["Calentamiento dinámico (4)", "Postura del cuervo (4)", "Parada de cabeza (4)", "Rueda (4)", "Equilibrios en brazos (4)", "Enfriamiento (4)"],
+      },
+      fr: {
+        title: "Défi 4",
+        description: "Repoussez vos limites avec des postures avancées et des flows intenses.",
+        exercises: ["Échauffement dynamique (4)", "Posture du corbeau (4)", "Équilibre sur la tête (4)", "Posture de la roue (4)", "Équilibres sur les bras (4)", "Retour au calme (4)"],
       },
     },
   }
@@ -517,7 +923,29 @@ export const getSessionsByCategory = (category: Session["category"]): Session[] 
   return sessions.filter(s => s.category === category);
 };
 
-export const getAreaSessions = (): Session[] => getSessionsByCategory("area");
+export const getAreaSessions = (): Session[] => {
+  const areaSlugs = [
+    "alongamento",
+    "alongamento-2",
+    "alongamento-3",
+    "matinal",
+    "matinal-2",
+    "matinal-3",
+    "matinal-4",
+    "relaxamento",
+    "relaxamento-2",
+    "relaxamento-3",
+    "relaxamento-4",
+    "lombar",
+    "lombar-2",
+    "lombar-3",
+    "desafio",
+    "desafio-2",
+    "desafio-3",
+    "desafio-4",
+  ];
+  return areaSlugs.map((slug) => getSessionBySlug(slug)).filter(Boolean) as Session[];
+};
 export const getProgramSessions = (): Session[] => getSessionsByCategory("programa");
 export const getFeaturedSessions = (): Session[] => getSessionsByCategory("destaque");
 

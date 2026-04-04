@@ -3,14 +3,14 @@ import { DesktopLayout } from "@/components/DesktopLayout";
 import { ArrowLeft, Play, Clock, Flame, Heart, Share2 } from "lucide-react";
 import { createT, useUser } from "@/context/UserContext";
 import { getWorkoutBySlug, getWorkoutText, workouts } from "@/data/workouts";
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 export default function TreinoDetail() {
   const { workoutId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const { preferences, savedSessions, toggleSavedSession, addSessionToHistory } = useUser();
+  const { preferences, savedSessions, toggleSavedSession, addSessionToHistory, workoutLoadOverrides, setWorkoutLoadOverride } = useUser();
   const t = createT(preferences.language);
   const from = (location.state as { from?: string } | null)?.from;
 
@@ -18,8 +18,38 @@ export default function TreinoDetail() {
   const workoutText = getWorkoutText(workout, preferences.language);
   const isMobilidade = workout.moduleId === "mobilidade";
   const isSaved = savedSessions.includes(workout.id);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const [exerciseVideoOpen, setExerciseVideoOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState<{ title: string; videoUrl?: string } | null>(null);
+
+  const storageKey = useMemo(() => `viva_fit_active_workout_${workout.id}`, [workout.id]);
+  const [activeStartMs, setActiveStartMs] = useState<number | null>(() => {
+    const v = sessionStorage.getItem(storageKey);
+    if (!v) return null;
+    const n = Number(v);
+    return Number.isFinite(n) ? n : null;
+  });
+  const [tick, setTick] = useState(0);
+  const activeSeconds = useMemo(() => {
+    void tick;
+    return activeStartMs ? Math.max(0, Math.floor((Date.now() - activeStartMs) / 1000)) : 0;
+  }, [activeStartMs, tick]);
+  const isActive = activeStartMs !== null;
+
+  useEffect(() => {
+    if (!isActive) return;
+    const id = window.setInterval(() => setTick((t) => t + 1), 1000);
+    return () => window.clearInterval(id);
+  }, [isActive]);
+
+  const formatElapsed = (seconds: number) => {
+    const s = Math.max(0, seconds);
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const ss = s % 60;
+    if (h > 0) return `${h}:${String(m).padStart(2, "0")}:${String(ss).padStart(2, "0")}`;
+    return `${m}:${String(ss).padStart(2, "0")}`;
+  };
 
   const openVideo = (title: string, videoUrl?: string) => {
     setActiveVideo({ title, videoUrl });
@@ -50,6 +80,7 @@ export default function TreinoDetail() {
           disablePictureInPicture
           onContextMenu={(e) => e.preventDefault()}
           poster={workout.image}
+          ref={videoRef}
         />
       );
     }
@@ -109,6 +140,15 @@ export default function TreinoDetail() {
                 <Play className="w-8 h-8 ml-1" fill="currentColor" />
               </div>
             ) : null}
+
+            {isActive ? (
+              <div className="absolute bottom-4 left-4 bg-card/80 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-foreground flex items-center gap-2 pointer-events-auto">
+                <Clock className="w-3 h-3 text-primary" />
+                <span>
+                  {t("activity.activeTime")}: {formatElapsed(activeSeconds)}
+                </span>
+              </div>
+            ) : null}
           </div>
         </section>
 
@@ -148,13 +188,9 @@ export default function TreinoDetail() {
             {workout.exerciseItems?.length
               ? workout.exerciseItems.map((item, index) => {
                   const title = workoutText.exercises[index] ?? item.name;
-                  const metaLines = [
-                    item.series ? `${t("exercise.series")}: ${item.series}` : null,
-                    item.load ? `${t("exercise.load")}: ${item.load}` : null,
-                    item.interval ? `${t("exercise.interval")}: ${item.interval}` : null,
-                    item.instructions ? `\n${t("exercise.instructions")}:\n${item.instructions}` : null,
-                  ].filter(Boolean);
-                  const meta = metaLines.join("\n");
+                  const loadKey = `${workout.id}:${item.name}:${index}`;
+                  const overriddenLoad = workoutLoadOverrides[loadKey];
+                  const effectiveLoad = overriddenLoad ?? item.load ?? "";
 
                   return (
                     <div
@@ -168,11 +204,39 @@ export default function TreinoDetail() {
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0">
                             <span className="text-foreground font-medium block">{title}</span>
-                            {meta ? (
-                              <span className="text-xs text-muted-foreground whitespace-pre-line block mt-1">
-                                {meta}
-                              </span>
-                            ) : null}
+                            <div className="text-xs text-muted-foreground mt-1 space-y-2">
+                              {item.series ? (
+                                <div className="whitespace-pre-line">
+                                  {t("exercise.series")}: {item.series}
+                                </div>
+                              ) : null}
+
+                              <div className="space-y-1">
+                                <div className="whitespace-pre-line">
+                                  {t("exercise.load")}:
+                                </div>
+                                <input
+                                  value={effectiveLoad}
+                                  onChange={(e) => setWorkoutLoadOverride(loadKey, e.target.value)}
+                                  placeholder={item.load || ""}
+                                  className="w-full bg-muted border border-border rounded-lg px-3 py-2 text-sm text-foreground"
+                                />
+                              </div>
+
+                              {item.interval ? (
+                                <div className="whitespace-pre-line">
+                                  {t("exercise.interval")}: {item.interval}
+                                </div>
+                              ) : null}
+
+                              {item.instructions ? (
+                                <div className="whitespace-pre-line">
+                                  {t("exercise.instructions")}:
+                                  {"\n"}
+                                  {item.instructions}
+                                </div>
+                              ) : null}
+                            </div>
                           </div>
                           <button
                             onClick={() => openVideo(title, item.videoUrl)}
@@ -227,21 +291,43 @@ export default function TreinoDetail() {
         </section>
 
         <section className="mt-8 animate-fade-in animate-delay-300">
-          <button
-            onClick={() =>
-              addSessionToHistory({
-                sessionId: workout.id,
-                sessionTitle: workoutText.title,
-                duration: workout.duration,
-                calories: workout.calories,
-                activityType: "workout",
-              })
-            }
-            className="w-full bg-primary text-primary-foreground py-4 rounded-2xl font-semibold text-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
-          >
-            <Play className="w-5 h-5" fill="currentColor" />
-            {t("workouts.start")}
-          </button>
+          {!isActive ? (
+            <button
+              onClick={() => {
+                const now = Date.now();
+                setActiveStartMs(now);
+                sessionStorage.setItem(storageKey, String(now));
+                window.requestAnimationFrame(() => {
+                  void videoRef.current?.play().catch(() => undefined);
+                });
+              }}
+              className="w-full bg-primary text-primary-foreground py-4 rounded-2xl font-semibold text-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
+            >
+              <Play className="w-5 h-5" fill="currentColor" />
+              {t("workouts.start")}
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                const elapsed = activeSeconds;
+                setActiveStartMs(null);
+                sessionStorage.removeItem(storageKey);
+                videoRef.current?.pause();
+                addSessionToHistory({
+                  sessionId: workout.id,
+                  sessionTitle: workoutText.title,
+                  duration: workout.duration,
+                  calories: workout.calories,
+                  activeSeconds: elapsed,
+                  activityType: "workout",
+                });
+              }}
+              className="w-full bg-foreground text-primary-foreground py-4 rounded-2xl font-semibold text-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-3"
+            >
+              <span>{t("common.finish")}</span>
+              <span className="text-sm font-medium opacity-90">{formatElapsed(activeSeconds)}</span>
+            </button>
+          )}
         </section>
       </div>
       <Dialog open={exerciseVideoOpen} onOpenChange={setExerciseVideoOpen}>

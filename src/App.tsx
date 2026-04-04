@@ -9,12 +9,14 @@ import Welcome from "./pages/Welcome";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Sessions from "./pages/Sessions";
+import SessionsModule from "./pages/SessionsModule";
 import Treinos from "./pages/Treinos";
 import Receitas from "./pages/Receitas";
 import ReceitasCategory from "./pages/ReceitasCategory";
 import ReceitaDetail from "./pages/ReceitaDetail";
 import TreinoDetail from "./pages/TreinoDetail";
 import TreinosModule from "./pages/TreinosModule";
+import TreinosTopic from "./pages/TreinosTopic";
 import SessionDetail from "./pages/SessionDetail";
 import Pilates from "./pages/Pilates";
 import PilatesDetail from "./pages/PilatesDetail";
@@ -81,8 +83,10 @@ const App = () => (
               <Route path="/login" element={<Login />} />
               <Route path="/home" element={<Home />} />
               <Route path="/sessions" element={<Sessions />} />
+              <Route path="/sessions/modulo/:moduleId" element={<SessionsModule />} />
               <Route path="/pilates" element={<Pilates />} />
               <Route path="/treinos" element={<Treinos />} />
+              <Route path="/treinos/modulo/:moduleId/topico/:topicId" element={<TreinosTopic />} />
               <Route path="/treinos/modulo/:moduleId" element={<TreinosModule />} />
               <Route path="/receitas" element={<Receitas />} />
               <Route path="/receitas/:categoryKey" element={<ReceitasCategory />} />

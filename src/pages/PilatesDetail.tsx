@@ -4,6 +4,7 @@ import { ArrowLeft, Play, Clock, Flame, Heart, Share2 } from "lucide-react";
 import { createT, useUser } from "@/context/UserContext";
 import { getPilatesSessionBySlug, pilatesSessions } from "@/data/pilates";
 import { getSessionText } from "@/data/sessions";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 export default function PilatesDetail() {
   const { sessionId } = useParams();
@@ -16,6 +17,36 @@ export default function PilatesDetail() {
   const session = getPilatesSessionBySlug(sessionId || "") || pilatesSessions[0];
   const sessionText = getSessionText(session, preferences.language);
   const isSaved = savedSessions.includes(session.id);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const storageKey = useMemo(() => `viva_fit_active_pilates_${session.id}`, [session.id]);
+  const [activeStartMs, setActiveStartMs] = useState<number | null>(() => {
+    const v = sessionStorage.getItem(storageKey);
+    if (!v) return null;
+    const n = Number(v);
+    return Number.isFinite(n) ? n : null;
+  });
+  const [tick, setTick] = useState(0);
+  const activeSeconds = useMemo(() => {
+    void tick;
+    return activeStartMs ? Math.max(0, Math.floor((Date.now() - activeStartMs) / 1000)) : 0;
+  }, [activeStartMs, tick]);
+  const isActive = activeStartMs !== null;
+
+  useEffect(() => {
+    if (!isActive) return;
+    const id = window.setInterval(() => setTick((t) => t + 1), 1000);
+    return () => window.clearInterval(id);
+  }, [isActive]);
+
+  const formatElapsed = (seconds: number) => {
+    const s = Math.max(0, seconds);
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const ss = s % 60;
+    if (h > 0) return `${h}:${String(m).padStart(2, "0")}:${String(ss).padStart(2, "0")}`;
+    return `${m}:${String(ss).padStart(2, "0")}`;
+  };
 
   const renderPlayer = () => {
     if (session.videoUrl) {
@@ -40,6 +71,7 @@ export default function PilatesDetail() {
           disablePictureInPicture
           onContextMenu={(e) => e.preventDefault()}
           poster={session.image}
+          ref={videoRef}
         />
       );
     }
@@ -63,6 +95,15 @@ export default function PilatesDetail() {
           <div className="relative rounded-3xl overflow-hidden h-56 lg:h-80 bg-muted">
             {renderPlayer()}
             <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent pointer-events-none" />
+
+            {isActive ? (
+              <div className="absolute bottom-4 left-4 bg-card/80 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-foreground flex items-center gap-2">
+                <Clock className="w-3 h-3 text-primary" />
+                <span>
+                  {t("activity.activeTime")}: {formatElapsed(activeSeconds)}
+                </span>
+              </div>
+            ) : null}
 
             <div className="absolute top-4 right-4 flex gap-2">
               <button
@@ -109,21 +150,43 @@ export default function PilatesDetail() {
         </section>
 
         <section className="mt-8 animate-fade-in animate-delay-300">
-          <button
-            onClick={() =>
-              addSessionToHistory({
-                sessionId: session.id,
-                sessionTitle: sessionText.title,
-                duration: session.duration,
-                calories: session.calories,
-                activityType: "pilates",
-              })
-            }
-            className="w-full bg-primary text-primary-foreground py-4 rounded-2xl font-semibold text-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
-          >
-            <Play className="w-5 h-5" fill="currentColor" />
-            {t("pilates.start")}
-          </button>
+          {!isActive ? (
+            <button
+              onClick={() => {
+                const now = Date.now();
+                setActiveStartMs(now);
+                sessionStorage.setItem(storageKey, String(now));
+                window.requestAnimationFrame(() => {
+                  void videoRef.current?.play().catch(() => undefined);
+                });
+              }}
+              className="w-full bg-primary text-primary-foreground py-4 rounded-2xl font-semibold text-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
+            >
+              <Play className="w-5 h-5" fill="currentColor" />
+              {t("pilates.start")}
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                const elapsed = activeSeconds;
+                setActiveStartMs(null);
+                sessionStorage.removeItem(storageKey);
+                videoRef.current?.pause();
+                addSessionToHistory({
+                  sessionId: session.id,
+                  sessionTitle: sessionText.title,
+                  duration: session.duration,
+                  calories: session.calories,
+                  activeSeconds: elapsed,
+                  activityType: "pilates",
+                });
+              }}
+              className="w-full bg-foreground text-primary-foreground py-4 rounded-2xl font-semibold text-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-3"
+            >
+              <span>{t("common.finish")}</span>
+              <span className="text-sm font-medium opacity-90">{formatElapsed(activeSeconds)}</span>
+            </button>
+          )}
         </section>
       </div>
     </DesktopLayout>

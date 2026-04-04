@@ -33,6 +33,8 @@ const translations: Record<Language, Record<string, string>> = {
     "home.count.categories": "{count} categorias",
     "common.open": "Abrir",
     "common.play": "Play",
+    "common.finish": "Finalizar",
+    "activity.activeTime": "Tempo ativo",
     "common.popular": "Popular",
     "yoga.badge.day01": "Dia 01",
     "common.seeAll": "Ver tudo",
@@ -254,6 +256,8 @@ const translations: Record<Language, Record<string, string>> = {
     "home.count.categories": "{count} categories",
     "common.open": "Open",
     "common.play": "Play",
+    "common.finish": "Finish",
+    "activity.activeTime": "Active time",
     "common.popular": "Popular",
     "yoga.badge.day01": "Day 01",
     "common.seeAll": "See all",
@@ -475,6 +479,8 @@ const translations: Record<Language, Record<string, string>> = {
     "home.count.categories": "{count} categorías",
     "common.open": "Abrir",
     "common.play": "Reproducir",
+    "common.finish": "Finalizar",
+    "activity.activeTime": "Tiempo activo",
     "common.popular": "Popular",
     "yoga.badge.day01": "Día 01",
     "common.seeAll": "Ver todo",
@@ -696,6 +702,8 @@ const translations: Record<Language, Record<string, string>> = {
     "home.count.categories": "{count} catégories",
     "common.open": "Ouvrir",
     "common.play": "Lire",
+    "common.finish": "Terminer",
+    "activity.activeTime": "Temps actif",
     "common.popular": "Populaire",
     "yoga.badge.day01": "Jour 01",
     "common.seeAll": "Voir tout",
@@ -943,6 +951,7 @@ interface SessionHistory {
   date: string;
   duration: string;
   calories: string;
+  activeSeconds?: number;
   activityType?: 'yoga' | 'workout' | 'pilates';
 }
 
@@ -959,6 +968,8 @@ interface UserContextType {
   toggleSavedSession: (id: number) => void;
   sessionHistory: SessionHistory[];
   addSessionToHistory: (session: Omit<SessionHistory, 'id' | 'date'>) => void;
+  workoutLoadOverrides: Record<string, string>;
+  setWorkoutLoadOverride: (key: string, load: string | null) => void;
 }
 
 const defaultReminders: Reminder[] = [
@@ -968,10 +979,10 @@ const defaultReminders: Reminder[] = [
 ];
 
 const defaultSessionHistory: SessionHistory[] = [
-  { id: 1, sessionId: 1, sessionTitle: 'Wake Up', date: '2024-01-05', duration: '15 min', calories: '350 kcal', activityType: 'yoga' },
-  { id: 2, sessionId: 2, sessionTitle: 'Lower Back', date: '2024-01-04', duration: '12 min', calories: '180 kcal', activityType: 'yoga' },
-  { id: 3, sessionId: 3, sessionTitle: 'Pescoço e Ombros', date: '2024-01-03', duration: '12 min', calories: '120 kcal', activityType: 'yoga' },
-  { id: 4, sessionId: 1, sessionTitle: 'Wake Up', date: '2024-01-02', duration: '15 min', calories: '350 kcal', activityType: 'yoga' },
+  { id: 1, sessionId: 1, sessionTitle: 'Wake Up', date: '2024-01-05', duration: '15 min', calories: '350 kcal', activeSeconds: 900, activityType: 'yoga' },
+  { id: 2, sessionId: 2, sessionTitle: 'Lower Back', date: '2024-01-04', duration: '12 min', calories: '180 kcal', activeSeconds: 720, activityType: 'yoga' },
+  { id: 3, sessionId: 3, sessionTitle: 'Pescoço e Ombros', date: '2024-01-03', duration: '12 min', calories: '120 kcal', activeSeconds: 720, activityType: 'yoga' },
+  { id: 4, sessionId: 1, sessionTitle: 'Wake Up', date: '2024-01-02', duration: '15 min', calories: '350 kcal', activeSeconds: 900, activityType: 'yoga' },
 ];
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -1004,7 +1015,29 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
   const [savedSessions, setSavedSessions] = useState<number[]>([1, 3]);
 
-  const [sessionHistory, setSessionHistory] = useState<SessionHistory[]>(defaultSessionHistory);
+  const [sessionHistory, setSessionHistory] = useState<SessionHistory[]>(() => {
+    const raw = localStorage.getItem("viva_fit_session_history");
+    if (!raw) return defaultSessionHistory;
+    try {
+      const parsed = JSON.parse(raw) as SessionHistory[];
+      if (!Array.isArray(parsed)) return defaultSessionHistory;
+      return parsed.filter((x) => typeof x === "object" && x !== null) as SessionHistory[];
+    } catch {
+      return defaultSessionHistory;
+    }
+  });
+
+  const [workoutLoadOverrides, setWorkoutLoadOverrides] = useState<Record<string, string>>(() => {
+    const raw = localStorage.getItem("viva_fit_workout_load_overrides");
+    if (!raw) return {};
+    try {
+      const parsed = JSON.parse(raw) as Record<string, string>;
+      if (!parsed || typeof parsed !== "object") return {};
+      return parsed;
+    } catch {
+      return {};
+    }
+  });
 
   // Aplicar tema no documento
   useEffect(() => {
@@ -1034,6 +1067,14 @@ export function UserProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = getLocale(preferences.language);
     localStorage.setItem('viva_fit_language', preferences.language);
   }, [preferences.language]);
+
+  useEffect(() => {
+    localStorage.setItem("viva_fit_session_history", JSON.stringify(sessionHistory));
+  }, [sessionHistory]);
+
+  useEffect(() => {
+    localStorage.setItem("viva_fit_workout_load_overrides", JSON.stringify(workoutLoadOverrides));
+  }, [workoutLoadOverrides]);
 
   const updateProfile = (newProfile: Partial<UserProfile>) => {
     setProfile(prev => ({ ...prev, ...newProfile }));
@@ -1068,6 +1109,20 @@ export function UserProvider({ children }: { children: ReactNode }) {
     setSessionHistory(prev => [newSession, ...prev]);
   };
 
+  const setWorkoutLoadOverride = (key: string, load: string | null) => {
+    const normalized = (load ?? "").trim();
+    setWorkoutLoadOverrides((prev) => {
+      if (!normalized) {
+        if (!(key in prev)) return prev;
+        const next = { ...prev };
+        delete next[key];
+        return next;
+      }
+      if (prev[key] === normalized) return prev;
+      return { ...prev, [key]: normalized };
+    });
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -1083,6 +1138,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
         toggleSavedSession,
         sessionHistory,
         addSessionToHistory,
+        workoutLoadOverrides,
+        setWorkoutLoadOverride,
       }}
     >
       {children}

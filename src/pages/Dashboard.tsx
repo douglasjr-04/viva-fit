@@ -7,9 +7,6 @@ import { getSessionText, sessions } from "@/data/sessions";
 import { getWorkoutText, workouts } from "@/data/workouts";
 import { pilatesSessions } from "@/data/pilates";
 
-// Mock data para visualização
-const streakData = [0.3, 0.7, 1, 0.8, 0.5, 0.2, 0.6];
-
 export default function Dashboard() {
   const { preferences, sessionHistory } = useUser();
   const [activeTab, setActiveTab] = useState<"status" | "history">("status");
@@ -20,10 +17,11 @@ export default function Dashboard() {
   // Calcular estatísticas reais
   const stats = useMemo(() => {
     const totalSessions = sessionHistory.length;
-    
-    const totalMinutes = sessionHistory.reduce((acc, session) => {
-      const minutes = parseInt(session.duration.replace(/\D/g, '')) || 0;
-      return acc + minutes;
+
+    const totalActiveSeconds = sessionHistory.reduce((acc, session) => {
+      if (typeof session.activeSeconds === "number") return acc + Math.max(0, session.activeSeconds);
+      const minutes = parseInt(session.duration.replace(/\D/g, "")) || 0;
+      return acc + minutes * 60;
     }, 0);
 
     const totalCalories = sessionHistory.reduce((acc, session) => {
@@ -31,7 +29,7 @@ export default function Dashboard() {
       return acc + calories;
     }, 0);
 
-    return { totalSessions, totalMinutes, totalCalories };
+    return { totalSessions, totalMinutes: Math.round(totalActiveSeconds / 60), totalCalories };
   }, [sessionHistory]);
 
   // Calcular posição da bolinha do indicador dinamicamente
@@ -81,6 +79,37 @@ export default function Dashboard() {
       return formatter.format(d);
     });
   }, [preferences.language]);
+
+  const weekActivity = useMemo(() => {
+    const toDateKey = (d: Date) =>
+      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+    const today = new Date();
+    const diffToMonday = (today.getDay() + 6) % 7;
+    const start = new Date(today.getFullYear(), today.getMonth(), today.getDate() - diffToMonday);
+    const weekKeys = Array.from({ length: 7 }, (_, i) =>
+      toDateKey(new Date(start.getFullYear(), start.getMonth(), start.getDate() + i))
+    );
+
+    const secondsByDate = new Map<string, number>();
+    for (const k of weekKeys) secondsByDate.set(k, 0);
+
+    for (const entry of sessionHistory) {
+      if (!secondsByDate.has(entry.date)) continue;
+      const sec =
+        typeof entry.activeSeconds === "number"
+          ? Math.max(0, entry.activeSeconds)
+          : (parseInt(entry.duration.replace(/\D/g, "")) || 0) * 60;
+      secondsByDate.set(entry.date, (secondsByDate.get(entry.date) || 0) + sec);
+    }
+
+    const secondsArr = weekKeys.map((k) => secondsByDate.get(k) || 0);
+    const maxSec = Math.max(1, ...secondsArr);
+    const streakData = secondsArr.map((s) => s / maxSec);
+    const totalWeekMinutes = Math.round(secondsArr.reduce((a, b) => a + b, 0) / 60);
+
+    return { streakData, totalWeekMinutes };
+  }, [sessionHistory]);
 
   return (
     <DesktopLayout>
@@ -183,8 +212,8 @@ export default function Dashboard() {
                           <div 
                             className="w-full bg-primary rounded-full transition-all duration-500"
                             style={{ 
-                              height: `${Math.max(streakData[index] * 100, 5)}%`,
-                              marginTop: `${(1 - Math.max(streakData[index], 0.05)) * 100}%`
+                              height: `${Math.max(weekActivity.streakData[index] * 100, 5)}%`,
+                              marginTop: `${(1 - Math.max(weekActivity.streakData[index], 0.05)) * 100}%`
                             }}
                           />
                         </div>
@@ -279,7 +308,15 @@ export default function Dashboard() {
                         <span>•</span>
                         <span className="flex items-center gap-1">
                           <Clock className="w-3 h-3" />
-                          {session.duration}
+                          {Math.max(
+                            1,
+                            Math.round(
+                              (typeof session.activeSeconds === "number"
+                                ? session.activeSeconds
+                                : (parseInt(session.duration.replace(/\D/g, "")) || 0) * 60) / 60
+                            )
+                          )}{" "}
+                          {t("dashboard.minutes")}
                         </span>
                         <span>•</span>
                         <span className="flex items-center gap-1">
