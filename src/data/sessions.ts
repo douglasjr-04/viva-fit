@@ -44,7 +44,6 @@ export const sessions: Session[] = [
     category: "destaque",
     image: yogaBlackOutfit,
     exercises: ["Respiração profunda", "Espreguiçar consciente", "Saudação ao sol leve", "Alongamento de pescoço", "Torção suave"],
-    videoUrl: "/videos/yoga-matinal.mp4",
     i18n: {
       en: {
         title: "Wake Up",
@@ -74,7 +73,6 @@ export const sessions: Session[] = [
     category: "destaque",
     image: yogaTealCurly,
     exercises: ["Postura do gato-vaca", "Joelhos ao peito", "Torção deitada", "Ponte", "Criança prolongada"],
-    videoUrl: "/videos/yoga-lombar.mp4",
     i18n: {
       en: {
         title: "Lower Back",
@@ -106,7 +104,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaLowerBack,
     exercises: ["Postura do gato-vaca", "Joelhos ao peito", "Torção deitada", "Ponte", "Criança prolongada"],
-    videoUrl: "/videos/yoga-lombar.mp4",
     i18n: {
       en: {
         title: "Lower Back",
@@ -136,7 +133,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaNeck,
     exercises: ["Rotação de cabeça", "Inclinação lateral", "Alongamento do trapézio", "Liberação de ombros", "Respiração relaxante"],
-    videoUrl: "/videos/yoga-relaxamento-2.mp4",
     i18n: {
       en: {
         title: "Neck",
@@ -166,7 +162,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaMorning,
     exercises: ["Respiração solar", "Saudação ao sol", "Guerreiro I", "Triângulo", "Árvore"],
-    videoUrl: "/videos/yoga-matinal.mp4",
     i18n: {
       en: {
         title: "Morning",
@@ -196,7 +191,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaHip,
     exercises: ["Borboleta", "Pomba", "Lagarto", "Agulha", "Sapo"],
-    videoUrl: "/videos/yoga-alongamento.mp4",
     i18n: {
       en: {
         title: "Hips",
@@ -226,7 +220,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaShoulder,
     exercises: ["Rotação de ombros", "Águia", "Vaca face", "Alongamento de braços", "Liberação escapular"],
-    videoUrl: "/videos/yoga-relaxamento-4.mp4",
     i18n: {
       en: {
         title: "Shoulders",
@@ -256,7 +249,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaEvening,
     exercises: ["Respiração 4-7-8", "Pernas na parede", "Torção relaxante", "Criança", "Savasana guiado"],
-    videoUrl: "/videos/yoga-relaxamento.mp4",
     i18n: {
       en: {
         title: "Evening",
@@ -286,7 +278,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaBalance,
     exercises: ["Árvore", "Guerreiro III", "Meia lua", "Dançarino", "Corvo preparatório"],
-    videoUrl: "/videos/yoga-desafio-3.mp4",
     i18n: {
       en: {
         title: "Balance",
@@ -316,7 +307,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaFlexibility,
     exercises: ["Splits preparatório", "Rã profunda", "Cachorro olhando para baixo", "Pinça sentada", "Ponte completa"],
-    videoUrl: "/videos/yoga-alongamento-4.mp4",
     i18n: {
       en: {
         title: "Flexibility",
@@ -348,7 +338,6 @@ export const sessions: Session[] = [
     category: "programa",
     image: yogaMorning,
     exercises: ["Respiração energizante", "Saudação ao sol A", "Saudação ao sol B", "Guerreiro flow", "Meditação final"],
-    videoUrl: "/videos/yoga-matinal-2.mp4",
     i18n: {
       en: {
         title: "Complete Morning Routine",
@@ -378,7 +367,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaEvening,
     exercises: ["Respiração diafragmática", "Corpo scan", "Pernas na parede", "Torção suportada", "Savasana prolongado"],
-    videoUrl: "/videos/yoga-relaxamento.mp4",
     i18n: {
       en: {
         title: "Relaxation",
@@ -408,7 +396,6 @@ export const sessions: Session[] = [
     category: "programa",
     image: yogaBalance,
     exercises: ["Prancha", "Barco", "Bicicleta", "Prancha lateral", "Ponte com elevação"],
-    videoUrl: "/videos/yoga-desafio.mp4",
     i18n: {
       en: {
         title: "Core Strength",
@@ -438,7 +425,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaBalance,
     exercises: ["Saudação ao sol A", "Saudação ao sol B", "Variações", "Flow dinâmico", "Savasana"],
-    videoUrl: "/videos/yoga-alongamento.mp4",
     i18n: {
       en: {
         title: "Stretching",
@@ -468,7 +454,6 @@ export const sessions: Session[] = [
     category: "programa",
     image: yogaMorning,
     exercises: ["Respiração energizante", "Saudação ao sol", "Guerreiro flow", "Equilíbrio", "Meditação ativa"],
-    videoUrl: "/videos/yoga-matinal-3.mp4",
     i18n: {
       en: {
         title: "Morning Awakening",
@@ -498,7 +483,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaBlackOutfit,
     exercises: ["Aquecimento dinâmico", "Crow pose", "Headstand", "Wheel pose", "Arm balances", "Cool down"],
-    videoUrl: "/videos/yoga-desafio.mp4",
     i18n: {
       en: {
         title: "Challenge",
@@ -529,7 +513,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaBalance,
     exercises: ["Saudação ao sol A (2)", "Saudação ao sol B (2)", "Variações (2)", "Flow dinâmico (2)", "Savasana (2)"],
-    videoUrl: "/videos/yoga-alongamento-1.mp4",
     i18n: {
       en: {
         title: "Stretching 2",
@@ -559,7 +542,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaBalance,
     exercises: ["Saudação ao sol A (3)", "Saudação ao sol B (3)", "Variações (3)", "Flow dinâmico (3)", "Savasana (3)"],
-    videoUrl: "/videos/yoga-alongamento-4.mp4",
     i18n: {
       en: {
         title: "Stretching 3",
@@ -589,7 +571,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaMorning,
     exercises: ["Respiração solar (2)", "Saudação ao sol (2)", "Guerreiro I (2)", "Triângulo (2)", "Árvore (2)"],
-    videoUrl: "/videos/yoga-matinal-1.mp4",
     i18n: {
       en: {
         title: "Morning 2",
@@ -619,7 +600,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaMorning,
     exercises: ["Respiração solar (3)", "Saudação ao sol (3)", "Guerreiro I (3)", "Triângulo (3)", "Árvore (3)"],
-    videoUrl: "/videos/yoga-matinal-2.mp4",
     i18n: {
       en: {
         title: "Morning 3",
@@ -649,7 +629,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaMorning,
     exercises: ["Respiração solar (4)", "Saudação ao sol (4)", "Guerreiro I (4)", "Triângulo (4)", "Árvore (4)"],
-    videoUrl: "/videos/yoga-matinal-3.mp4",
     i18n: {
       en: {
         title: "Morning 4",
@@ -679,7 +658,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaEvening,
     exercises: ["Respiração diafragmática (2)", "Corpo scan (2)", "Pernas na parede (2)", "Torção suportada (2)", "Savasana prolongado (2)"],
-    videoUrl: "/videos/yoga-relaxamento-2.mp4",
     i18n: {
       en: {
         title: "Relaxation 2",
@@ -709,7 +687,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaEvening,
     exercises: ["Respiração diafragmática (3)", "Corpo scan (3)", "Pernas na parede (3)", "Torção suportada (3)", "Savasana prolongado (3)"],
-    videoUrl: "/videos/yoga-relaxamento-3.mp4",
     i18n: {
       en: {
         title: "Relaxation 3",
@@ -739,7 +716,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaEvening,
     exercises: ["Respiração diafragmática (4)", "Corpo scan (4)", "Pernas na parede (4)", "Torção suportada (4)", "Savasana prolongado (4)"],
-    videoUrl: "/videos/yoga-relaxamento-4.mp4",
     i18n: {
       en: {
         title: "Relaxation 4",
@@ -769,7 +745,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaLowerBack,
     exercises: ["Postura do gato-vaca (2)", "Joelhos ao peito (2)", "Torção deitada (2)", "Ponte (2)", "Criança prolongada (2)"],
-    videoUrl: "/videos/yoga-lombar-2.mp4",
     i18n: {
       en: {
         title: "Lower Back 2",
@@ -799,7 +774,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaLowerBack,
     exercises: ["Postura do gato-vaca (3)", "Joelhos ao peito (3)", "Torção deitada (3)", "Ponte (3)", "Criança prolongada (3)"],
-    videoUrl: "/videos/yoga-lombar-3.mp4",
     i18n: {
       en: {
         title: "Lower Back 3",
@@ -829,7 +803,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaBlackOutfit,
     exercises: ["Aquecimento dinâmico (2)", "Crow pose (2)", "Headstand (2)", "Wheel pose (2)", "Arm balances (2)", "Cool down (2)"],
-    videoUrl: "/videos/yoga-desafio-2.mp4",
     i18n: {
       en: {
         title: "Challenge 2",
@@ -859,7 +832,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaBlackOutfit,
     exercises: ["Aquecimento dinâmico (3)", "Crow pose (3)", "Headstand (3)", "Wheel pose (3)", "Arm balances (3)", "Cool down (3)"],
-    videoUrl: "/videos/yoga-desafio-3.mp4",
     i18n: {
       en: {
         title: "Challenge 3",
@@ -889,7 +861,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaBlackOutfit,
     exercises: ["Aquecimento dinâmico (4)", "Crow pose (4)", "Headstand (4)", "Wheel pose (4)", "Arm balances (4)", "Cool down (4)"],
-    videoUrl: "/videos/yoga-desafio-4.mp4",
     i18n: {
       en: {
         title: "Challenge 4",

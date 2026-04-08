@@ -43,7 +43,6 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Todos",
     category: "area",
     image: yogaEvening,
-    videoUrl: "/videos/pilates-dores-nas-costas.mp4",
     groupIds: ["postura_dores"],
     exercises: ["Respiração", "Pelvic clock", "Knee sway", "Child's pose", "Relax"],
     i18n: {
@@ -74,7 +73,6 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Todos",
     category: "area",
     image: yogaNeck,
-    videoUrl: "/videos/pilates-pescoco.mp4",
     groupIds: ["postura_dores"],
     exercises: ["Head nods", "Neck circles", "Scapular circles", "Arm openings", "Breathing"],
     i18n: {
@@ -105,7 +103,6 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Iniciante",
     category: "programa",
     image: yogaMorning,
-    videoUrl: "/videos/pilates-respiracao.mp4",
     groupIds: ["respiracao_base"],
     exercises: ["Respiração lateral", "Ativação do centro", "Imprint", "Mobilidade suave", "Relaxamento"],
     i18n: {
@@ -136,7 +133,6 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Iniciante",
     category: "programa",
     image: yogaHip,
-    videoUrl: "/videos/pilates-exercicio-pelvico.mp4",
     groupIds: ["respiracao_base", "core_abdomen"],
     exercises: ["Pelvic clock", "Imprint & release", "Bridge leve", "Knee folds", "Respiração"],
     i18n: {
@@ -167,7 +163,6 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Iniciante",
     category: "programa",
     image: yogaShoulder,
-    videoUrl: "/videos/pilates-no-chao-de-casa.mp4",
     groupIds: ["respiracao_base"],
     exercises: ["Respiração", "Hundred leve", "Single leg stretch", "Bridge", "Alongamento final"],
     i18n: {
@@ -198,7 +193,6 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Iniciante",
     category: "programa",
     image: yogaMorning,
-    videoUrl: "/videos/pilates-comece-o-dia.mp4",
     groupIds: ["comece_o_dia", "mobilidade_flexibilidade"],
     exercises: ["Respiração", "Mobilidade de coluna", "Quadril", "Ombros", "Alongamento"],
     i18n: {
@@ -229,7 +223,6 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Intermediário",
     category: "programa",
     image: yogaMorning,
-    videoUrl: "/videos/pilates-comece-o-dia-com-energia.mp4",
     groupIds: ["comece_o_dia", "fortalecimento"],
     exercises: ["Hundred", "Bridge", "Plank prep", "Side kicks", "Alongamento"],
     i18n: {
@@ -260,7 +253,6 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Intermediário",
     category: "programa",
     image: yogaLowerBack,
-    videoUrl: "/videos/pilates-fortaleca-abdomen.mp4",
     groupIds: ["fortalecimento", "core_abdomen"],
     exercises: ["Dead bug", "Single leg stretch", "Criss-cross", "Plank prep", "Stretch"],
     i18n: {
@@ -291,7 +283,6 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Intermediário",
     category: "programa",
     image: yogaShoulder,
-    videoUrl: "/videos/pilates-fortaleca-braco.mp4",
     groupIds: ["fortalecimento"],
     exercises: ["Scapular setting", "Push-up prep", "Triceps press", "Plank holds", "Stretch"],
     i18n: {
@@ -322,7 +313,6 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Intermediário",
     category: "programa",
     image: yogaHip,
-    videoUrl: "/videos/pilates-fortaleca-perna.mp4",
     groupIds: ["fortalecimento"],
     exercises: ["Leg circles", "Side kicks", "Bridge", "Squat prep", "Stretch"],
     i18n: {
@@ -353,7 +343,6 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Intermediário",
     category: "programa",
     image: yogaShoulder,
-    videoUrl: "/videos/pilates-fortaleca-ombro.mp4",
     groupIds: ["fortalecimento", "postura_dores"],
     exercises: ["Scapular circles", "Arm openings", "Swan prep", "Shoulder stability", "Stretch"],
     i18n: {
@@ -384,7 +373,6 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Intermediário",
     category: "programa",
     image: yogaLowerBack,
-    videoUrl: "/videos/pilates-exercicios-abdominal.mp4",
     groupIds: ["core_abdomen"],
     exercises: ["Hundred", "Single leg stretch", "Criss-cross", "Plank prep", "Stretch"],
     i18n: {
@@ -415,7 +403,6 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Intermediário",
     category: "programa",
     image: yogaShoulder,
-    videoUrl: "/videos/pilates-10-exercicios-braco.mp4",
     groupIds: ["core_abdomen", "fortalecimento"],
     exercises: ["Scapular setting", "Arm series", "Plank prep", "Triceps", "Stretch"],
     i18n: {
@@ -446,7 +433,6 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Todos",
     category: "area",
     image: yogaEvening,
-    videoUrl: "/videos/pilates-alongamento-mobilidade.mp4",
     groupIds: ["mobilidade_flexibilidade"],
     exercises: ["Mobilidade de coluna", "Quadril", "Ombros", "Alongamentos", "Respiração"],
     i18n: {
@@ -477,7 +463,6 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Todos",
     category: "programa",
     image: yogaEvening,
-    videoUrl: "/videos/pilates-como-esta-mobilidade.mp4",
     groupIds: ["mobilidade_flexibilidade"],
     exercises: ["Spine twist", "Saw", "Hip stretch", "Shoulder opening", "Relax"],
     i18n: {
@@ -508,7 +493,6 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Intermediário",
     category: "programa",
     image: yogaBalance,
-    videoUrl: "/videos/pilates-exercicio-em-pe.mp4",
     groupIds: ["em_pe"],
     exercises: ["Alinhamento", "Equilíbrio", "Agachamento controlado", "Estabilidade", "Alongamento"],
     i18n: {
