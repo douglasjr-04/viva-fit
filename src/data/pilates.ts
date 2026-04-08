@@ -193,6 +193,7 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Iniciante",
     category: "programa",
     image: yogaMorning,
+    videoUrl: "https://www.youtube.com/embed/hW9y2INnNrQ",
     groupIds: ["comece_o_dia", "mobilidade_flexibilidade"],
     exercises: ["Respiração", "Mobilidade de coluna", "Quadril", "Ombros", "Alongamento"],
     i18n: {
@@ -223,6 +224,7 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Intermediário",
     category: "programa",
     image: yogaMorning,
+    videoUrl: "https://www.youtube.com/embed/Oqmv45F8fJw",
     groupIds: ["comece_o_dia", "fortalecimento"],
     exercises: ["Hundred", "Bridge", "Plank prep", "Side kicks", "Alongamento"],
     i18n: {
@@ -433,6 +435,7 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Todos",
     category: "area",
     image: yogaEvening,
+    videoUrl: "https://www.youtube.com/embed/hYCS5ZsYRSs",
     groupIds: ["mobilidade_flexibilidade"],
     exercises: ["Mobilidade de coluna", "Quadril", "Ombros", "Alongamentos", "Respiração"],
     i18n: {
@@ -493,6 +496,7 @@ export const pilatesSessions: PilatesSession[] = [
     level: "Intermediário",
     category: "programa",
     image: yogaBalance,
+    videoUrl: "https://www.youtube.com/embed/6mYE8KGGJIc",
     groupIds: ["em_pe"],
     exercises: ["Alinhamento", "Equilíbrio", "Agachamento controlado", "Estabilidade", "Alongamento"],
     i18n: {
