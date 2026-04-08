@@ -1,5 +1,5 @@
 import { DesktopLayout } from "@/components/DesktopLayout";
-import { User, Bell, Volume2, ChevronRight, Dumbbell, Target, AlertTriangle, Activity, MessageCircle, Palette, Check, ArrowLeft, Globe } from "lucide-react";
+import { User, Bell, Volume2, ChevronRight, Dumbbell, Target, AlertTriangle, Activity, MessageCircle, Palette, Check, ArrowLeft, Globe, Download, Smartphone } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import { createT, Language, useUser, ThemeType } from "@/context/UserContext";
@@ -73,7 +73,7 @@ const themes: { id: ThemeType; nameKey: string; colors: { primary: string; secon
 type ModalType = "editProfile" | "personalInfo" | "reminders" | "experienceLevel" | "focusAreas" | "careAreas" | "healthConditions" | "support" | null;
 
 export default function Profile() {
-  const { profile, preferences: userPrefs, updatePreferences } = useUser();
+  const { profile, preferences: userPrefs, updatePreferences, pwaIsInstalled, pwaCanInstall, pwaIsIOS, promptPwaInstall } = useUser();
   const [openModal, setOpenModal] = useState<ModalType>(null);
   const navigate = useNavigate();
   const t = createT(userPrefs.language);
@@ -266,6 +266,67 @@ export default function Profile() {
                     <ChevronRight className="w-5 h-5 text-muted-foreground" />
                   </button>
                 ))}
+              </div>
+            </section>
+
+            <section className="mt-6 animate-fade-in animate-delay-250">
+              <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wide mb-3">
+                {t("profile.app")}
+              </h3>
+
+              <div className="bg-card rounded-2xl overflow-hidden border border-border/50">
+                {!pwaIsInstalled ? (
+                  pwaCanInstall ? (
+                    <button
+                      onClick={async () => {
+                        const result = await promptPwaInstall();
+                        if (result === "unavailable") {
+                          navigate("/instalar-app", { state: { from: "/profile" } });
+                        }
+                      }}
+                      className="w-full flex items-center justify-between p-4 hover:bg-muted/50 transition-colors"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Download className="w-5 h-5 text-muted-foreground" />
+                        <span className="text-foreground">{t("pwa.settings.install")}</span>
+                      </div>
+                      <ChevronRight className="w-5 h-5 text-muted-foreground" />
+                    </button>
+                  ) : pwaIsIOS ? (
+                    <button
+                      onClick={() => navigate("/instalar-app", { state: { from: "/profile" } })}
+                      className="w-full flex items-center justify-between p-4 hover:bg-muted/50 transition-colors"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Smartphone className="w-5 h-5 text-muted-foreground" />
+                        <span className="text-foreground">{t("pwa.settings.howInstallIphone")}</span>
+                      </div>
+                      <ChevronRight className="w-5 h-5 text-muted-foreground" />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => navigate("/instalar-app", { state: { from: "/profile" } })}
+                      className="w-full flex items-center justify-between p-4 hover:bg-muted/50 transition-colors"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Smartphone className="w-5 h-5 text-muted-foreground" />
+                        <span className="text-foreground">{t("pwa.instructions.title")}</span>
+                      </div>
+                      <ChevronRight className="w-5 h-5 text-muted-foreground" />
+                    </button>
+                  )
+                ) : (
+                  <button
+                    onClick={() => navigate("/instalar-app", { state: { from: "/profile" } })}
+                    className="w-full flex items-center justify-between p-4 hover:bg-muted/50 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Smartphone className="w-5 h-5 text-muted-foreground" />
+                      <span className="text-foreground">{t("pwa.settings.howUninstall")}</span>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-muted-foreground" />
+                  </button>
+                )}
               </div>
             </section>
 

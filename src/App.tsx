@@ -22,6 +22,7 @@ import Pilates from "./pages/Pilates";
 import PilatesDetail from "./pages/PilatesDetail";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
+import InstallInstructions from "./pages/InstallInstructions";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -96,6 +97,7 @@ const App = () => (
               <Route path="/session/:sessionId" element={<SessionDetail />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/instalar-app" element={<InstallInstructions />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </SessionRedirect>

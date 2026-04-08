@@ -1,5 +1,5 @@
 // User context for app state management
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo, ReactNode } from 'react';
 
 export type ThemeType = 'default' | 'coral' | 'lavender' | 'amber';
 export type Language = 'pt' | 'en' | 'es' | 'fr';
@@ -35,6 +35,12 @@ const translations: Record<Language, Record<string, string>> = {
     "common.play": "Play",
     "common.finish": "Finalizar",
     "activity.activeTime": "Tempo ativo",
+    "pwa.banner.text": "📲 Deseja instalar como aplicativo?",
+    "pwa.banner.installNow": "Instalar agora",
+    "pwa.settings.install": "Instalar aplicativo",
+    "pwa.settings.howInstallIphone": "Como instalar no iPhone",
+    "pwa.settings.howUninstall": "Como desinstalar o aplicativo",
+    "pwa.instructions.title": "Como instalar o aplicativo",
     "common.popular": "Popular",
     "yoga.badge.day01": "Dia 01",
     "common.seeAll": "Ver tudo",
@@ -148,6 +154,7 @@ const translations: Record<Language, Record<string, string>> = {
     "auth.notMember": "Ainda não é membro?",
     "auth.signUp": "Cadastre-se",
     "profile.preferences": "Preferências",
+    "profile.app": "Aplicativo",
     "profile.language": "Idioma",
     "profile.editProfile": "Editar perfil",
     "profile.theme": "Tema",
@@ -258,6 +265,12 @@ const translations: Record<Language, Record<string, string>> = {
     "common.play": "Play",
     "common.finish": "Finish",
     "activity.activeTime": "Active time",
+    "pwa.banner.text": "📲 Install as an app?",
+    "pwa.banner.installNow": "Install now",
+    "pwa.settings.install": "Install app",
+    "pwa.settings.howInstallIphone": "How to install on iPhone",
+    "pwa.settings.howUninstall": "How to uninstall the app",
+    "pwa.instructions.title": "How to install the app",
     "common.popular": "Popular",
     "yoga.badge.day01": "Day 01",
     "common.seeAll": "See all",
@@ -371,6 +384,7 @@ const translations: Record<Language, Record<string, string>> = {
     "auth.notMember": "Not a member yet?",
     "auth.signUp": "Sign up",
     "profile.preferences": "Preferences",
+    "profile.app": "App",
     "profile.language": "Language",
     "profile.editProfile": "Edit profile",
     "profile.theme": "Theme",
@@ -481,6 +495,12 @@ const translations: Record<Language, Record<string, string>> = {
     "common.play": "Reproducir",
     "common.finish": "Finalizar",
     "activity.activeTime": "Tiempo activo",
+    "pwa.banner.text": "📲 ¿Quieres instalar como app?",
+    "pwa.banner.installNow": "Instalar ahora",
+    "pwa.settings.install": "Instalar aplicación",
+    "pwa.settings.howInstallIphone": "Cómo instalar en iPhone",
+    "pwa.settings.howUninstall": "Cómo desinstalar la aplicación",
+    "pwa.instructions.title": "Cómo instalar la aplicación",
     "common.popular": "Popular",
     "yoga.badge.day01": "Día 01",
     "common.seeAll": "Ver todo",
@@ -594,6 +614,7 @@ const translations: Record<Language, Record<string, string>> = {
     "auth.notMember": "¿Aún no eres miembro?",
     "auth.signUp": "Regístrate",
     "profile.preferences": "Preferencias",
+    "profile.app": "Aplicación",
     "profile.language": "Idioma",
     "profile.editProfile": "Editar perfil",
     "profile.theme": "Tema",
@@ -704,6 +725,12 @@ const translations: Record<Language, Record<string, string>> = {
     "common.play": "Lire",
     "common.finish": "Terminer",
     "activity.activeTime": "Temps actif",
+    "pwa.banner.text": "📲 Installer comme application ?",
+    "pwa.banner.installNow": "Installer maintenant",
+    "pwa.settings.install": "Installer l’application",
+    "pwa.settings.howInstallIphone": "Installer sur iPhone",
+    "pwa.settings.howUninstall": "Comment désinstaller l’application",
+    "pwa.instructions.title": "Comment installer l’application",
     "common.popular": "Populaire",
     "yoga.badge.day01": "Jour 01",
     "common.seeAll": "Voir tout",
@@ -817,6 +844,7 @@ const translations: Record<Language, Record<string, string>> = {
     "auth.notMember": "Pas encore membre ?",
     "auth.signUp": "S’inscrire",
     "profile.preferences": "Préférences",
+    "profile.app": "Application",
     "profile.language": "Langue",
     "profile.editProfile": "Modifier le profil",
     "profile.theme": "Thème",
@@ -955,6 +983,11 @@ interface SessionHistory {
   activityType?: 'yoga' | 'workout' | 'pilates';
 }
 
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
+}
+
 interface UserContextType {
   profile: UserProfile;
   updateProfile: (profile: Partial<UserProfile>) => void;
@@ -970,6 +1003,12 @@ interface UserContextType {
   addSessionToHistory: (session: Omit<SessionHistory, 'id' | 'date'>) => void;
   workoutLoadOverrides: Record<string, string>;
   setWorkoutLoadOverride: (key: string, load: string | null) => void;
+  pwaIsInstalled: boolean;
+  pwaCanInstall: boolean;
+  pwaIsIOS: boolean;
+  pwaBannerDismissed: boolean;
+  dismissPwaBanner: () => void;
+  promptPwaInstall: () => Promise<"accepted" | "dismissed" | "unavailable">;
 }
 
 const defaultReminders: Reminder[] = [
@@ -1039,6 +1078,28 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
   });
 
+  const pwaIsIOS = useMemo(() => {
+    const nav = navigator as unknown as { standalone?: boolean };
+    const ua = navigator.userAgent || "";
+    const isAppleMobile = /iPhone|iPad|iPod/i.test(ua);
+    return isAppleMobile && typeof nav.standalone !== "undefined";
+  }, []);
+
+  const [pwaIsInstalled, setPwaIsInstalled] = useState<boolean>(() => {
+    const stored = localStorage.getItem("viva_fit_pwa_installed") === "true";
+    const nav = navigator as unknown as { standalone?: boolean };
+    const standalone =
+      window.matchMedia?.("(display-mode: standalone)")?.matches === true || nav.standalone === true;
+    return stored || standalone;
+  });
+
+  const [pwaBannerDismissed, setPwaBannerDismissed] = useState<boolean>(() => {
+    return localStorage.getItem("viva_fit_pwa_banner_dismissed") === "true";
+  });
+
+  const deferredPromptRef = React.useRef<BeforeInstallPromptEvent | null>(null);
+  const [pwaCanInstall, setPwaCanInstall] = useState<boolean>(false);
+
   // Aplicar tema no documento
   useEffect(() => {
     const root = document.documentElement;
@@ -1075,6 +1136,47 @@ export function UserProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     localStorage.setItem("viva_fit_workout_load_overrides", JSON.stringify(workoutLoadOverrides));
   }, [workoutLoadOverrides]);
+
+  useEffect(() => {
+    localStorage.setItem("viva_fit_pwa_banner_dismissed", pwaBannerDismissed ? "true" : "false");
+  }, [pwaBannerDismissed]);
+
+  useEffect(() => {
+    localStorage.setItem("viva_fit_pwa_installed", pwaIsInstalled ? "true" : "false");
+  }, [pwaIsInstalled]);
+
+  useEffect(() => {
+    const onBeforeInstallPrompt = (e: Event) => {
+      const evt = e as BeforeInstallPromptEvent;
+      evt.preventDefault();
+      deferredPromptRef.current = evt;
+      setPwaCanInstall(true);
+    };
+
+    const onAppInstalled = () => {
+      setPwaIsInstalled(true);
+      setPwaCanInstall(false);
+      deferredPromptRef.current = null;
+    };
+
+    const mql = window.matchMedia?.("(display-mode: standalone)");
+    const onDisplayModeChange = () => {
+      const nav = navigator as unknown as { standalone?: boolean };
+      const standalone = mql?.matches === true || nav.standalone === true;
+      if (standalone) setPwaIsInstalled(true);
+    };
+
+    window.addEventListener("beforeinstallprompt", onBeforeInstallPrompt);
+    window.addEventListener("appinstalled", onAppInstalled);
+    mql?.addEventListener?.("change", onDisplayModeChange);
+    onDisplayModeChange();
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt", onBeforeInstallPrompt);
+      window.removeEventListener("appinstalled", onAppInstalled);
+      mql?.removeEventListener?.("change", onDisplayModeChange);
+    };
+  }, []);
 
   const updateProfile = (newProfile: Partial<UserProfile>) => {
     setProfile(prev => ({ ...prev, ...newProfile }));
@@ -1123,6 +1225,20 @@ export function UserProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  const dismissPwaBanner = () => setPwaBannerDismissed(true);
+
+  const promptPwaInstall = async () => {
+    const evt = deferredPromptRef.current;
+    if (!evt) return "unavailable" as const;
+    await evt.prompt();
+    const choice = await evt.userChoice;
+    if (choice.outcome === "accepted") {
+      setPwaBannerDismissed(true);
+      return "accepted" as const;
+    }
+    return "dismissed" as const;
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -1140,6 +1256,12 @@ export function UserProvider({ children }: { children: ReactNode }) {
         addSessionToHistory,
         workoutLoadOverrides,
         setWorkoutLoadOverride,
+        pwaIsInstalled,
+        pwaCanInstall,
+        pwaIsIOS,
+        pwaBannerDismissed,
+        dismissPwaBanner,
+        promptPwaInstall,
       }}
     >
       {children}
