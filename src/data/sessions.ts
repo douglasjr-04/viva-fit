@@ -73,6 +73,7 @@ export const sessions: Session[] = [
     category: "destaque",
     image: yogaTealCurly,
     exercises: ["Postura do gato-vaca", "Joelhos ao peito", "Torção deitada", "Ponte", "Criança prolongada"],
+    videoUrl: "/videos/Alongamento-Dorsal-Espaldar-IV.mp4",
     i18n: {
       en: {
         title: "Lower Back",
@@ -104,7 +105,7 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaLowerBack,
     exercises: ["Postura do gato-vaca", "Joelhos ao peito", "Torção deitada", "Ponte", "Criança prolongada"],
-    videoUrl: "https://www.youtube.com/embed/RN06XogqHBI",
+    videoUrl: "/videos/Alongamento-Dorsal-Espaldar-IV.mp4",
     i18n: {
       en: {
         title: "Lower Back",
@@ -134,6 +135,7 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaNeck,
     exercises: ["Rotação de cabeça", "Inclinação lateral", "Alongamento do trapézio", "Liberação de ombros", "Respiração relaxante"],
+    videoUrl: "/videos/Alongamento-de-Pescoco-II.mp4",
     i18n: {
       en: {
         title: "Neck",
@@ -158,8 +160,8 @@ export const sessions: Session[] = [
     title: "Matinal",
     description: "Comece o dia com energia e disposição através de movimentos suaves.",
     duration: "15 min",
-    calories: "200 kcal",
-    level: "Iniciante",
+    calories: "120 kcal",
+    level: "Todos",
     category: "area",
     image: yogaMorning,
     exercises: ["Respiração solar", "Saudação ao sol", "Guerreiro I", "Triângulo", "Árvore"],
@@ -193,6 +195,7 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaHip,
     exercises: ["Borboleta", "Pomba", "Lagarto", "Agulha", "Sapo"],
+    videoUrl: "/videos/Anterior-Quadril-com-Flexao-de-Tronco.mp4",
     i18n: {
       en: {
         title: "Hips",
@@ -222,6 +225,7 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaShoulder,
     exercises: ["Rotação de ombros", "Águia", "Vaca face", "Alongamento de braços", "Liberação escapular"],
+    videoUrl: "/videos/Alongamento-de-Peitoral-Espaldar.mp4",
     i18n: {
       en: {
         title: "Shoulders",

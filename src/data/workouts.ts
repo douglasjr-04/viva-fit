@@ -76,6 +76,13 @@ export const workouts: Workout[] = [
     topics: ["challenges"],
     image: yogaBlackOutfit,
     exercises: ["Polichinelos leves", "Mobilidade de ombros", "Agachamentos", "Prancha curta", "Alongamento geral"],
+    exerciseItems: [
+      { name: "Polichinelos leves", series: "3 x 30 segundos", load: "0kg", videoUrl: "/videos/Polichinelo.mp4" },
+      { name: "Mobilidade de ombros", series: "3 x 12", load: "0kg", videoUrl: "/videos/Alongamento-de-Peitoral-Espaldar.mp4" },
+      { name: "Agachamentos", series: "3 x 15", load: "0kg", videoUrl: "/videos/agachamento-livre.mp4" },
+      { name: "Prancha curta", series: "3 x 30 segundos", load: "0kg", videoUrl: "/videos/Prancha-isometrica.mp4" },
+      { name: "Alongamento geral", series: "1 x 60 segundos", load: "0kg", videoUrl: "/videos/Alongamento-de-Posteriores-VII.mp4" },
+    ],
     videoUrl: "/videos/Polichinelo.mp4",
     i18n: {
       en: {
@@ -785,6 +792,13 @@ export const workouts: Workout[] = [
     topics: ["challenges"],
     image: yogaBlackOutfit,
     exercises: ["Agachamento", "Polichinelos", "Prancha", "Afundo", "Alongamento final"],
+    exerciseItems: [
+      { name: "Agachamento", series: "3 x 15", load: "0kg", videoUrl: "/videos/agachamento-livre.mp4" },
+      { name: "Polichinelos", series: "3 x 30 segundos", load: "0kg", videoUrl: "/videos/Polichinelo.mp4" },
+      { name: "Prancha", series: "3 x 30 segundos", load: "0kg", videoUrl: "/videos/Prancha-isometrica.mp4" },
+      { name: "Afundo", series: "3 x 10 cada perna", load: "0kg", videoUrl: "/videos/Afundo.mp4" },
+      { name: "Alongamento final", series: "1 x 60 segundos", load: "0kg", videoUrl: "/videos/Alongamento-de-Posteriores-VII.mp4" },
+    ],
     videoUrl: "/videos/agachamento-livre.mp4",
     i18n: {
       en: {
@@ -1406,18 +1420,7 @@ export const workouts: Workout[] = [
     moduleId: "academia",
     topics: ["weight_loss"],
     image: yogaShoulder,
-    exercises: [
-      "Puxada Articulada Aberta",
-      "A — Remada Curvada (Pegada Supinada)",
-      "B — Elevação Lateral",
-      "A — Remada Baixa (Pegada Pronada)",
-      "B — Rosca Direta com Halteres",
-      "Desenvolvimento com Halteres Sentado",
-      "Rosca Direta na Polia (Barra Reta)",
-      "Prancha Isométrica",
-      "Abdominal Remador",
-      "Elíptico",
-    ],
+    exercises: ["Puxada Articulada Aberta", "A — Remada Curvada (Pegada Supinada)", "B — Elevação Lateral", "A — Remada Baixa (Pegada Pronada)", "B — Rosca Direta com Halteres", "Desenvolvimento com Halteres Sentado", "Rosca Direta na Polia (Barra Reta)", "Prancha Isométrica", "Abdominal Remador", "Elíptico"],
     exerciseItems: [
       { name: "Puxada Articulada Aberta", series: "4 x 10 a 12", load: "0kg", videoUrl: "/videos/Puxada-Articulada-Aberta.mp4" },
       {
@@ -2198,7 +2201,14 @@ export const workouts: Workout[] = [
     topics: ["dumbbells", "full_body"],
     image: yogaFlexibility,
     exercises: ["Agachamento", "Flexão joelhos no chão", "Remada toalha", "Prancha", "Alongamentos"],
-    videoUrl: "/videos/Elevação-de-Quadril.mp4",
+    exerciseItems: [
+      { name: "Agachamento", series: "3 x 12 a 15", load: "0kg", videoUrl: "/videos/agachamento-livre.mp4" },
+      { name: "Flexão joelhos no chão", series: "3 x 10 a 12", load: "0kg", videoUrl: "/videos/Flexão-de-Braços-com-Apoio.mp4" },
+      { name: "Remada toalha", series: "3 x 12 a 15", load: "0kg", videoUrl: "/videos/Remada-Aberta-Sentado-Faixa-Elastica.mp4" },
+      { name: "Prancha", series: "3 x 30 a 60 segundos", load: "0kg", videoUrl: "/videos/Prancha-isometrica.mp4" },
+      { name: "Alongamentos", series: "1 x 30 segundos", load: "0kg", videoUrl: "/videos/Alongamento-de-Posteriores-VII.mp4" },
+    ],
+    videoUrl: "/videos/agachamento-livre.mp4",
     i18n: {
       en: {
         title: "Basic Strength",
