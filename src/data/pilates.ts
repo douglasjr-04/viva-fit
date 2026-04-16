@@ -135,7 +135,6 @@ export const pilatesSessions: PilatesSession[] = [
     image: yogaHip,
     groupIds: ["respiracao_base", "core_abdomen"],
     exercises: ["Pelvic clock", "Imprint & release", "Bridge leve", "Knee folds", "Respiração"],
-    videoUrl: "/videos/Elevação-de-Quadril.mp4",
     i18n: {
       en: {
         title: "Pelvic Stability",
@@ -258,7 +257,6 @@ export const pilatesSessions: PilatesSession[] = [
     image: yogaLowerBack,
     groupIds: ["fortalecimento", "core_abdomen"],
     exercises: ["Dead bug", "Single leg stretch", "Criss-cross", "Plank prep", "Stretch"],
-    videoUrl: "/videos/abdominal-dead-bug.mp4",
     i18n: {
       en: {
         title: "Strengthen Abdomen",
@@ -289,7 +287,6 @@ export const pilatesSessions: PilatesSession[] = [
     image: yogaShoulder,
     groupIds: ["fortalecimento"],
     exercises: ["Scapular setting", "Push-up prep", "Triceps press", "Plank holds", "Stretch"],
-    videoUrl: "/videos/Flexão-de-Braços-com-Apoio.mp4",
     i18n: {
       en: {
         title: "Strengthen Arms",
@@ -320,7 +317,6 @@ export const pilatesSessions: PilatesSession[] = [
     image: yogaHip,
     groupIds: ["fortalecimento"],
     exercises: ["Leg circles", "Side kicks", "Bridge", "Squat prep", "Stretch"],
-    videoUrl: "/videos/afundo-com-carga.mp4",
     i18n: {
       en: {
         title: "Strengthen Legs",
@@ -351,7 +347,6 @@ export const pilatesSessions: PilatesSession[] = [
     image: yogaShoulder,
     groupIds: ["fortalecimento", "postura_dores"],
     exercises: ["Scapular circles", "Arm openings", "Swan prep", "Shoulder stability", "Stretch"],
-    videoUrl: "/videos/Alongamento-de-Peitoral-Espaldar.mp4",
     i18n: {
       en: {
         title: "Strengthen Shoulders",
@@ -382,7 +377,6 @@ export const pilatesSessions: PilatesSession[] = [
     image: yogaLowerBack,
     groupIds: ["core_abdomen"],
     exercises: ["Hundred", "Single leg stretch", "Criss-cross", "Plank prep", "Stretch"],
-    videoUrl: "/videos/abdominal-supra.mp4",
     i18n: {
       en: {
         title: "Abdominal Exercises",
@@ -535,7 +529,6 @@ export const pilatesSessions: PilatesSession[] = [
     image: yogaLowerBack,
     groupIds: ["desafios_rapidos", "core_abdomen"],
     exercises: ["Hundred", "Plank prep", "Dead bug", "Criss-cross", "Stretch"],
-    videoUrl: "/videos/abdominal-bicicleta.mp4",
     i18n: {
       en: {
         title: "Quick Challenge: Abdomen",

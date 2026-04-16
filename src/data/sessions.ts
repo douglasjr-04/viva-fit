@@ -73,7 +73,6 @@ export const sessions: Session[] = [
     category: "destaque",
     image: yogaTealCurly,
     exercises: ["Postura do gato-vaca", "Joelhos ao peito", "Torção deitada", "Ponte", "Criança prolongada"],
-    videoUrl: "/videos/Alongamento-Dorsal-Espaldar-IV.mp4",
     i18n: {
       en: {
         title: "Lower Back",
@@ -105,7 +104,7 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaLowerBack,
     exercises: ["Postura do gato-vaca", "Joelhos ao peito", "Torção deitada", "Ponte", "Criança prolongada"],
-    videoUrl: "/videos/Alongamento-Dorsal-Espaldar-IV.mp4",
+    videoUrl: "https://www.youtube.com/embed/RN06XogqHBI",
     i18n: {
       en: {
         title: "Lower Back",
@@ -135,7 +134,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaNeck,
     exercises: ["Rotação de cabeça", "Inclinação lateral", "Alongamento do trapézio", "Liberação de ombros", "Respiração relaxante"],
-    videoUrl: "/videos/Alongamento-de-Pescoco-II.mp4",
     i18n: {
       en: {
         title: "Neck",
@@ -195,7 +193,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaHip,
     exercises: ["Borboleta", "Pomba", "Lagarto", "Agulha", "Sapo"],
-    videoUrl: "/videos/Anterior-Quadril-com-Flexao-de-Tronco.mp4",
     i18n: {
       en: {
         title: "Hips",
@@ -225,7 +222,6 @@ export const sessions: Session[] = [
     category: "area",
     image: yogaShoulder,
     exercises: ["Rotação de ombros", "Águia", "Vaca face", "Alongamento de braços", "Liberação escapular"],
-    videoUrl: "/videos/Alongamento-de-Peitoral-Espaldar.mp4",
     i18n: {
       en: {
         title: "Shoulders",
